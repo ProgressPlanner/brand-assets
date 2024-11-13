@@ -1,0 +1,64 @@
+{
+	"apiVersion": 2,
+	"name": "my-plugin/color-scheme",
+	"title": "Color Scheme",
+	"icon": "art",
+	"category": "design",
+	"description": "A block that displays a color scheme of your choice.",
+	"supports": {
+		"align": true
+	},
+	"attributes": {
+		"swatches": {
+			"type": "array",
+			"default": [
+				{ 
+					"name": "Red", 
+					"color": "#e63027",
+					"cmyk": "0,79,83,10"
+				},
+				{ 
+					"name": "Green", 
+					"color": "#008000",
+					"cmyk": "100,0,100,50"
+				},
+				{ 
+					"name": "Black", 
+					"color": "#000000",
+					"cmyk": "0,0,0,100"
+				}
+			]
+		},
+		"swatchWidth": {
+			"type": "number",
+			"default": 150
+		},
+		"swatchHeight": {
+			"type": "number",
+			"default": 150
+		},
+		"swatchGap": {
+			"type": "number",
+			"default": 20
+		},
+		"borderWidth": {
+			"type": "number",
+			"default": 1
+		},
+		"borderRadius": {
+			"type": "number",
+			"default": 0
+		},
+		"borderColor": {
+			"type": "string",
+			"default": "#888888"
+		},
+		"showCMYK": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor-style.css",
+	"style": "file:./style.css"
+}
