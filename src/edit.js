@@ -95,7 +95,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 
 	// Initialize swatches with theme colors if they're empty and theme colors are available
 	useEffect( () => {
-		if ( swatches.length === 0 && themeColors.length > 0 ) {
+		if ( swatches.length === 0 ) {
 			const defaultSwatches = getDefaultSwatches( themeColors );
 			setAttributes( { swatches: defaultSwatches } );
 		}
