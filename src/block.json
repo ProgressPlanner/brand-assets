@@ -11,23 +11,7 @@
 	"attributes": {
 		"swatches": {
 			"type": "array",
-			"default": [
-				{
-					"name": "Red",
-					"color": "#E63027",
-					"cmyk": "0,79,83,10"
-				},
-				{
-					"name": "Green",
-					"color": "#008000",
-					"cmyk": "100,0,100,50"
-				},
-				{
-					"name": "Black",
-					"color": "#000000",
-					"cmyk": "0,0,0,100"
-				}
-			]
+			"default": []
 		},
 		"swatchWidth": {
 			"type": "number",

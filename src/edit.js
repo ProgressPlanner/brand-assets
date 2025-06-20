@@ -1,4 +1,4 @@
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import {
 	PanelBody,
@@ -37,6 +37,36 @@ const hexToCmyk = ( hex ) => {
 	) },${ Math.round( k * 100 ) }`;
 };
 
+// Function to get default swatches from theme colors or fallback to defaults
+const getDefaultSwatches = ( themeColors ) => {
+	if ( themeColors && themeColors.length > 0 ) {
+		return themeColors.map( ( color, index ) => ({
+			name: color.name || `Color ${ index + 1 }`,
+			color: color.color,
+			cmyk: hexToCmyk( color.color )
+		}));
+	}
+
+	// Fallback to default colors
+	return [
+		{
+			name: 'Red',
+			color: '#E63027',
+			cmyk: '0,79,83,10'
+		},
+		{
+			name: 'Green',
+			color: '#008000',
+			cmyk: '100,0,100,50'
+		},
+		{
+			name: 'Black',
+			color: '#000000',
+			cmyk: '0,0,0,100'
+		}
+	];
+};
+
 export default function Edit( { attributes, setAttributes, clientId } ) {
 	const {
 		swatches,
@@ -51,12 +81,25 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 	const [ selectedSwatchIndex, setSelectedSwatchIndex ] = useState( 0 );
 	const [ linked, setLinked ] = useState( true );
 
+	// Get theme colors from WordPress
+	const themeColors = useSelect( ( select ) => {
+		return select( 'core/block-editor' ).getSettings()?.colors || [];
+	}, [] );
+
 	// Check if the block is selected
 	const isSelected = useSelect(
 		( select ) =>
 			select( 'core/block-editor' ).getBlockSelectionStart() === clientId,
 		[ clientId ]
 	);
+
+	// Initialize swatches with theme colors if they're empty and theme colors are available
+	useEffect( () => {
+		if ( swatches.length === 0 && themeColors.length > 0 ) {
+			const defaultSwatches = getDefaultSwatches( themeColors );
+			setAttributes( { swatches: defaultSwatches } );
+		}
+	}, [ swatches.length, themeColors.length, setAttributes ] );
 
 	const updateSwatch = ( index, newSwatch ) => {
 		const updatedSwatches = [ ...swatches ];
