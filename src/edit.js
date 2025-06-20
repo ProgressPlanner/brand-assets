@@ -99,7 +99,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 			const defaultSwatches = getDefaultSwatches( themeColors );
 			setAttributes( { swatches: defaultSwatches } );
 		}
-	}, [ swatches.length, themeColors.length, setAttributes ] );
+	}, [ setAttributes ] );
 
 	const updateSwatch = ( index, newSwatch ) => {
 		const updatedSwatches = [ ...swatches ];
