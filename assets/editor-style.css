@@ -7,7 +7,7 @@
         }
 
         button.delete {
-            position: absolute; 
+            position: absolute;
             top: 5px;
             right: 5px;
             background: transparent;
@@ -22,6 +22,33 @@
             }
         }
         &.dark button.delete {
+            color: #fff;
+        }
+
+        .move-controls {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            display: flex;
+            gap: 2px;
+
+            button {
+                background: transparent;
+                color: #000;
+                border: none;
+                cursor: pointer;
+                font-size: 14px;
+                line-height: 1;
+                padding: 2px;
+                border-radius: 2px;
+
+                &:hover {
+                    font-weight: bold;
+                }
+            }
+        }
+
+        &.dark .move-controls button {
             color: #fff;
         }
     }
