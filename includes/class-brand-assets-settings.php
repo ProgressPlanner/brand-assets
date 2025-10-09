@@ -79,7 +79,7 @@ final class Brand_Assets_Settings {
 	 */
 	public function add_admin_menu() {
 		add_options_page(
-			__( 'Brand Assets Settings', 'brand-assets' ),
+			__( 'Brand Assets settings', 'brand-assets' ),
 			__( 'Brand Assets', 'brand-assets' ),
 			'manage_options',
 			'brand-assets-settings',
@@ -186,7 +186,7 @@ final class Brand_Assets_Settings {
 				<table class="form-table" role="presentation">
 					<tr>
 						<th scope="row">
-							<label for="brand_page_id"><?php esc_html_e( 'Brand Assets Page', 'brand-assets' ); ?></label>
+							<label for="brand_page_id"><?php esc_html_e( 'Brand Assets page', 'brand-assets' ); ?></label>
 						</th>
 						<td>
 							<select name="<?php echo esc_attr( self::OPTIONS_NAME ); ?>[brand_page_id]" id="brand_page_id">
@@ -203,7 +203,7 @@ final class Brand_Assets_Settings {
 
 					<tr>
 						<th scope="row">
-							<label for="popover_heading"><?php esc_html_e( 'Popover Heading', 'brand-assets' ); ?></label>
+							<label for="popover_heading"><?php esc_html_e( 'Popover heading', 'brand-assets' ); ?></label>
 						</th>
 						<td>
 							<input type="text" name="<?php echo esc_attr( self::OPTIONS_NAME ); ?>[popover_heading]" id="popover_heading" value="<?php echo esc_attr( $options['popover_heading'] ); ?>" class="regular-text" />
@@ -213,7 +213,7 @@ final class Brand_Assets_Settings {
 
 					<tr>
 						<th scope="row">
-							<label for="popover_subheading_line1"><?php esc_html_e( 'Popover Subheading Line 1', 'brand-assets' ); ?></label>
+							<label for="popover_subheading_line1"><?php esc_html_e( 'Popover line 1', 'brand-assets' ); ?></label>
 						</th>
 						<td>
 							<input type="text" name="<?php echo esc_attr( self::OPTIONS_NAME ); ?>[popover_subheading_line1]" id="popover_subheading_line1" value="<?php echo esc_attr( $options['popover_subheading_line1'] ); ?>" class="regular-text" />
@@ -223,7 +223,7 @@ final class Brand_Assets_Settings {
 
 					<tr>
 						<th scope="row">
-							<label for="popover_subheading_line2"><?php esc_html_e( 'Popover Subheading Line 2', 'brand-assets' ); ?></label>
+							<label for="popover_subheading_line2"><?php esc_html_e( 'Popover line 2', 'brand-assets' ); ?></label>
 						</th>
 						<td>
 							<input type="text" name="<?php echo esc_attr( self::OPTIONS_NAME ); ?>[popover_subheading_line2]" id="popover_subheading_line2" value="<?php echo esc_attr( $options['popover_subheading_line2'] ); ?>" class="regular-text" />
@@ -233,7 +233,7 @@ final class Brand_Assets_Settings {
 
 					<tr>
 						<th scope="row">
-							<label for="popover_link_text"><?php esc_html_e( 'Link Text', 'brand-assets' ); ?></label>
+							<label for="popover_link_text"><?php esc_html_e( 'Link text', 'brand-assets' ); ?></label>
 						</th>
 						<td>
 							<input type="text" name="<?php echo esc_attr( self::OPTIONS_NAME ); ?>[popover_link_text]" id="popover_link_text" value="<?php echo esc_attr( $options['popover_link_text'] ); ?>" class="regular-text" />
@@ -243,7 +243,7 @@ final class Brand_Assets_Settings {
 
 					<tr>
 						<th scope="row">
-							<label for="logo_selector"><?php esc_html_e( 'Logo Selector', 'brand-assets' ); ?></label>
+							<label for="logo_selector"><?php esc_html_e( 'Logo selector', 'brand-assets' ); ?></label>
 						</th>
 						<td>
 							<input type="text" name="<?php echo esc_attr( self::OPTIONS_NAME ); ?>[logo_selector]" id="logo_selector" value="<?php echo esc_attr( $options['logo_selector'] ); ?>" class="regular-text" />

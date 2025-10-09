@@ -1,0 +1,14 @@
+{
+    "landingPage": "/wp-admin/admin.php?page=brand-assets-settings",
+    "features": {
+        "networking": true
+    },
+    "plugins": [
+        "brand-assets"
+    ],
+    "steps": [
+        {
+            "step": "login"
+        }
+    ]
+}

@@ -1,0 +1,33 @@
+name: Deploy to WordPress.org repository
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  deploy_to_wordpress_org:
+    name: Deploy release
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+      # Optional: if we add a build step to the plugin, we can run it here.
+      # Deploy the plugin to WordPress.org
+      - name: WordPress plugin deploy
+        id: deploy
+        uses: 10up/action-wordpress-plugin-deploy@develop
+        with:
+          generate-zip: true
+        env:
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+      # After the deploy, we also want to create a zip and upload it to the release on Github. We don't want
+      # users to have to go to the repository to find our plugin :).
+      - name: Upload release asset
+        uses: Shopify/upload-to-release@master
+        with:
+          name: ${{ github.event.repository.name }}.zip
+          path: ${{ steps.deploy.outputs.zip-path }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          content-type: application/zip

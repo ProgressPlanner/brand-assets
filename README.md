@@ -54,15 +54,6 @@ A WordPress block plugin that allows you to easily display your company's brand 
    - Border width, radius, and color
    - Enable/disable CMYK values
 
-### Example Color Codes
-
-```
-Primary: #1E3A8A
-Secondary: #F59E0B
-Accent: #EF4444
-Neutral: #6B7280
-```
-
 ### Configuring the Logo Popover
 
 The Brand Assets plugin includes a logo popover feature that appears when users right-click on your site logo. To configure this feature:
