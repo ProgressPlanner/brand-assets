@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<ruleset name="Brand Assets">
+	<description>WordPress Coding Standards for Brand Assets plugin</description>
+
+	<!-- What to scan -->
+	<file>.</file>
+
+	<!-- Exclude common non-PHP files -->
+	<exclude-pattern>/vendor/</exclude-pattern>
+	<exclude-pattern>/node_modules/</exclude-pattern>
+	<exclude-pattern>/build/</exclude-pattern>
+	<exclude-pattern>*.min.js</exclude-pattern>
+	<exclude-pattern>*.min.css</exclude-pattern>
+
+	<!-- Use WordPress Coding Standards -->
+	<rule ref="WordPress"/>
+
+	<!-- Use WordPress-Extra rules. -->
+	<rule ref="WordPress-Extra"/>
+
+	<!-- Use WordPress-Docs rules. -->
+	<rule ref="WordPress-Docs"/>
+
+	<!-- Disable specific rules. -->
+	<rule ref="Universal">
+	    <exclude name="Universal.Operators.DisallowShortTernary.Found"/>
+		<exclude name="Universal.Classes.DisallowFinalClass.FinalClassFound"/>
+	</rule>
+
+	<!-- PHP version compatibility. -->
+	<config name="minimum_supported_wp_version" value="6.6"/>
+	<config name="testVersion" value="7.4-"/>
+
+	<!-- Text domain. -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="brand-assets"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- File extensions. -->
+	<arg name="extensions" value="php"/>
+
+	<!-- Show progress. -->
+	<arg value="p"/>
+
+	<!-- Show colors. -->
+	<arg name="colors"/>
+
+	<!-- Show sniff codes in all reports. -->
+	<arg value="s"/>
+</ruleset>
