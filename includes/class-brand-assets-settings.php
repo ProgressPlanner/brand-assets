@@ -35,21 +35,12 @@ final class Brand_Assets_Settings {
 	private const OPTIONS_NAME = 'brand_assets_options';
 
 	/**
-	 * Constructor
-	 *
-	 * @since 0.1.0
-	 */
-	public function __construct() {
-		$this->init_hooks();
-	}
-
-	/**
 	 * Initialize WordPress hooks
 	 *
 	 * @since 0.1.0
 	 * @return void
 	 */
-	private function init_hooks() {
+	public function init_hooks() {
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
 	}
