@@ -89,6 +89,9 @@ final class Brand_Assets {
 		$this->settings = new Brand_Assets_Settings();
 		$this->frontend = new Brand_Assets_Frontend();
 
+		$this->settings->init_hooks();
+		$this->frontend->init_hooks();
+
 		// Register the block.
 		$this->register_block();
 	}

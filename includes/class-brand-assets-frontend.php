@@ -27,21 +27,12 @@ final class Brand_Assets_Frontend {
 	private $popover_options = array();
 
 	/**
-	 * Constructor
-	 *
-	 * @since 0.1.0
-	 */
-	public function __construct() {
-		$this->init_hooks();
-	}
-
-	/**
 	 * Initialize WordPress hooks
 	 *
 	 * @since 0.1.0
 	 * @return void
 	 */
-	private function init_hooks() {
+	public function init_hooks() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_action( 'wp_footer', array( $this, 'add_popover_html' ) );
 	}
