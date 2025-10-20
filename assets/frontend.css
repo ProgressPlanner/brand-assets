@@ -1,0 +1,35 @@
+#brand_assets_logo_popover {
+	padding: 30px;
+	border-radius: 10px;
+
+	&::backdrop {
+		background: rgba(0, 0, 0, 0.75);
+	}
+	h1 {
+		font-size: 1.2em;
+	}
+	p {
+		margin: 20px 0;
+		line-height: 1.5;
+	}
+	a {
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	button.close {
+		border: none;
+		background-color: #fff;
+		color: #ddd;
+		font-size: 1em;
+		font-weight: bold;
+		position: absolute;
+		right: 8px;
+		top: 5px;
+		padding: 5px;
+
+		&:hover {
+			cursor: pointer;
+			color: #000;
+		}
+	}
+}

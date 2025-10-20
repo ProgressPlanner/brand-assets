@@ -27,6 +27,10 @@
 		<exclude name="Universal.Classes.DisallowFinalClass.FinalClassFound"/>
 	</rule>
 
+	<rule ref="WordPress">
+		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
+	</rule>
+
 	<!-- PHP version compatibility. -->
 	<config name="minimum_supported_wp_version" value="6.6"/>
 	<config name="testVersion" value="7.4-"/>

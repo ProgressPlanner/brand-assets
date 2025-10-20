@@ -44,38 +44,12 @@ final class Brand_Assets_Frontend {
 	 * @return void
 	 */
 	public function enqueue_scripts() {
-		$settings = new Brand_Assets_Settings();
-		$options  = $settings->get_options();
+		$options = Brand_Assets::get_instance()->options->get_all();
 
 		// Only enqueue if we have a brand page selected.
 		if ( empty( $options['brand_page_id'] ) ) {
 			return;
 		}
-
-		$brand_page_id            = $options['brand_page_id'];
-		$popover_heading          = $options['popover_heading'] ?: __( 'Looking for our logo?', 'brand-assets' );
-		$popover_subheading_line1 = $options['popover_subheading_line1'] ?: __( "You're in the right spot!", 'brand-assets' );
-		$popover_subheading_line2 = $options['popover_subheading_line2'] ?: __( 'Go to our', 'brand-assets' );
-		$popover_link_text        = $options['popover_link_text'] ?: __( 'logo & style page', 'brand-assets' );
-		$logo_selector            = $options['logo_selector'] ?: '.wp-block-site-logo';
-
-		// Get the page URL and title.
-		$page_url   = get_permalink( $brand_page_id );
-		$page_title = get_the_title( $brand_page_id );
-
-		if ( ! $page_url || ! $page_title ) {
-			return;
-		}
-
-		// Store the options for use in add_popover_html.
-		$this->popover_options = array(
-			'heading'          => $popover_heading,
-			'subheading_line1' => $popover_subheading_line1,
-			'subheading_line2' => $popover_subheading_line2,
-			'link_text'        => $popover_link_text,
-			'page_url'         => $page_url,
-			'logo_selector'    => $logo_selector,
-		);
 
 		// Register and enqueue our own style handle.
 		wp_register_style( 'brand-assets-popover', false, array(), BRAND_ASSETS_VERSION );
@@ -85,26 +59,50 @@ final class Brand_Assets_Frontend {
 		wp_register_script( 'brand-assets-popover', false, array(), BRAND_ASSETS_VERSION, true );
 		wp_enqueue_script( 'brand-assets-popover' );
 
-		// Create the CSS.
-		$css = $this->get_popover_css();
-
 		// Create the JavaScript.
 		$js = sprintf(
 			'document.addEventListener("DOMContentLoaded", function() {
 				const logoElement = document.querySelector("%s");
+				const popover = document.querySelector("#brand_assets_logo_popover");
+
 				if (logoElement) {
 					logoElement.addEventListener("contextmenu", function(event) {
 						event.preventDefault();
-						document.querySelector("#logo_popover").showPopover();
+						popover.showPopover();
 					}, false);
 				}
+
+				// Close popover on escape key
+				document.addEventListener("keydown", function(event) {
+					if (event.key === "Escape" && popover && popover.matches(":popover-open")) {
+						popover.hidePopover();
+					}
+				}, false);
 			});',
-			esc_js( $logo_selector )
+			esc_js( $options['logo_selector'] )
 		);
 
-		// Add inline styles and scripts to our own handles.
-		wp_add_inline_style( 'brand-assets-popover', $css );
+		// Add inline scripts to our own handle.
 		wp_add_inline_script( 'brand-assets-popover', $js );
+
+		// Handle CSS based on loading mode.
+		$css_to_load = '';
+		switch ( $options['css_loading_mode'] ) {
+			case 'default':
+				$css_to_load = $this->get_default_css();
+				break;
+			case 'custom':
+				$css_to_load = $options['css'];
+				break;
+			case 'none':
+			default:
+				break;
+		}
+
+		// Add inline styles if we have CSS to load.
+		if ( ! empty( $css_to_load ) ) {
+			wp_add_inline_style( 'brand-assets-popover', $css_to_load );
+		}
 	}
 
 	/**
@@ -114,61 +112,53 @@ final class Brand_Assets_Frontend {
 	 * @return void
 	 */
 	public function add_popover_html() {
-		// Only add HTML if we have popover options (meaning enqueue_scripts ran).
-		if ( empty( $this->popover_options ) ) {
+		$options = Brand_Assets::get_instance()->options->get_all();
+
+		if ( empty( $options['brand_page_id'] ) ) {
 			return;
 		}
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in the printf.
 		printf(
-			'<div popover="manual" id="logo_popover">
-				<h3>%s</h3>
-				<p>%s<br>%s <a href="%s">%s</a>.</p>
-				<button class="close" popovertarget="logo_popover" popovertargetaction="hide">X</button>
-			</div>',
-			esc_html( $this->popover_options['heading'] ),
-			esc_html( $this->popover_options['subheading_line1'] ),
-			esc_html( $this->popover_options['subheading_line2'] ),
-			esc_url( $this->popover_options['page_url'] ),
-			esc_html( $this->popover_options['link_text'] )
+			'<dialog popover="manual" id="brand_assets_logo_popover">
+	<h1>%s</h1>
+	<p class="text_line1">%s</p>
+	<p class="text_line2">%s <a href="%s">%s</a>.</p>
+	<button class="close" popovertarget="brand_assets_logo_popover" popovertargetaction="hide">X</button>
+</dialog>' . PHP_EOL,
+			esc_html( $options['heading'] ),
+			esc_html( $options['text_line1'] ),
+			esc_html( $options['text_line2'] ),
+			esc_url( get_permalink( $options['brand_page_id'] ) ),
+			esc_html( $options['link_text'] )
 		);
 	}
 
 	/**
-	 * Get popover CSS styles
+	 * Get default CSS from the frontend.css file.
 	 *
 	 * @since 0.1.0
-	 * @return string CSS styles for the popover.
+	 * @return string
 	 */
-	private function get_popover_css() {
-		return '
-			#logo_popover::backdrop {
-				background: rgb(0 0 0 / 75%);
-			}
-			#logo_popover {
-				position: relative;
-				padding: 30px 45px 20px 30px;
-				text-align: left;
-			}
-			#logo_popover p {
-				margin: 20px 0;
-				line-height: 1.5;
-			}
-			#logo_popover a {
-				font-weight: bold;
-				text-decoration: underline;
-			}
-			#logo_popover button.close {
-				border: none;
-				background-color: #fff;
-				position: absolute;
-				right: 5px;
-				top: 5px;
-			}
-			#logo_popover button.close:hover {
-				cursor: pointer;
-				background-color: #CCE1D7;
-			}
-		';
+	private function get_default_css() {
+		/**
+		 * Filter the path to the frontend CSS file.
+		 *
+		 * Allows developers to customize the location of the frontend CSS file
+		 * used for styling the logo popover. The CSS file should contain styles
+		 * for the #brand_assets_logo_popover element and its children.
+		 *
+		 * @since 0.1.0
+		 * @param string $css_file_path The path to the CSS file. Default: BRAND_ASSETS_PLUGIN_DIR . 'assets/frontend.css'
+		 */
+		$css_file = apply_filters( 'brand_assets_frontend_css_path', BRAND_ASSETS_PLUGIN_DIR . 'assets/frontend.css' );
+
+		if ( file_exists( $css_file ) ) {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- This is a valid use of file_get_contents.
+			$css_content = file_get_contents( $css_file );
+			return $css_content ? $css_content : '';
+		}
+
+		return '';
 	}
 }

@@ -66,6 +66,85 @@ The Brand Assets plugin includes a logo popover feature that appears when users 
 
 The popover will only appear if you have selected a brand assets page in the settings.
 
+### Download Links Feature
+
+The Brand Assets plugin includes a convenient feature for creating download links. When you add the `ba-download` class to a list item in Gutenberg, all links within that list item will automatically get the `download` attribute added to them.
+
+#### How to Use Download Links
+
+1. **Create a List**: In the WordPress editor, create a list (ordered or unordered)
+2. **Add the Class**: Select a list item and add the CSS class `ba-download` in the Advanced settings
+3. **Add Links**: Add your download links within that list item
+4. **Automatic Processing**: The plugin will automatically add the `download` attribute to all links in that list item
+
+#### Example
+
+```html
+<ul>
+  <li class="ba-download">
+    <a href="https://example.com/files/brand-guidelines.pdf">Brand Guidelines (PDF)</a>
+  </li>
+  <li class="ba-download">
+    <a href="https://example.com/files/logo-pack.zip">Logo Pack (ZIP)</a>
+  </li>
+</ul>
+```
+
+The plugin will automatically transform these links to include the `download` attribute:
+
+```html
+<ul>
+  <li class="ba-download">
+    <a href="https://example.com/files/brand-guidelines.pdf" download>Brand Guidelines (PDF)</a>
+  </li>
+  <li class="ba-download">
+    <a href="https://example.com/files/logo-pack.zip" download>Logo Pack (ZIP)</a>
+  </li>
+</ul>
+```
+
+This feature is particularly useful for brand asset pages where you want to provide downloadable files like logos, brand guidelines, or other resources.
+
+## Brand Page Pattern
+
+The Brand Assets plugin comes with a pre-built block pattern that provides a complete template for creating brand asset pages. This pattern includes:
+
+### Pattern Sections
+
+1. **Logo Section**:
+   - Two-column layout for logo and icon display
+   - Download links for SVG, EPS, and PNG formats
+   - Uses the `ba-download` class for automatic download attributes
+
+2. **Brand Colors Section**:
+   - Pre-configured Brand Assets block with sample colors
+   - Includes CMYK values for print-ready color information
+   - Responsive color swatches with customizable styling
+
+3. **Typography Section**:
+   - Complete heading hierarchy (H1-H6)
+   - Text formatting examples (normal, bold, italic)
+   - Table example for comprehensive typography showcase
+
+### How to Use the Pattern
+
+1. **Create a New Page**: In WordPress admin, create a new page for your brand assets
+2. **Add the Pattern**: In the block editor, click the "+" button and go to the **Patterns** tab
+3. **Find the Pattern**: Look for "Brand Assets" in the available patterns
+4. **Insert and Customize**: Click to insert the pattern, then customize it with your actual:
+   - Logo and icon images
+   - Brand colors (replace the sample colors in the Brand Assets block)
+   - Download links for your actual files
+   - Typography information
+
+### Pattern Benefits
+
+- **Quick Setup**: Get a professional brand assets page in minutes
+- **Best Practices**: Follows design patterns proven to work well for brand guidelines
+- **Download Integration**: Automatically includes the download links feature
+- **Responsive Design**: Works perfectly on all devices
+- **Customizable**: Easy to modify and adapt to your specific brand needs
+
 ## Block Settings
 
 | Setting | Description | Default |
@@ -91,9 +170,50 @@ The Brand Assets plugin includes a comprehensive settings page accessible via:
 |---------|-------------|---------|
 | Brand Assets Page | Page where users are taken when clicking the popover link | None (disabled) |
 | Popover Heading | Main heading text in the popover | "Looking for our logo?" |
-| Popover Subheading | Text below the heading (supports HTML) | "You're in the right spot!<br>Go to our" |
-| Link Text | Text for the link to your brand assets page | "logo & style page" |
+| Popover Text Line 1 | First line of text that appears below the heading | "You're in the right spot!" |
+| Popover Text Line 2 | Second line of text that appears before the link | "Check out our" |
+| Link Text | Text for the link to your brand assets page | "brand assets" |
 | Logo Selector | CSS selector for the logo element | ".wp-block-site-logo" |
+| CSS Loading Mode | Choose how CSS should be loaded for the popover | "Load the default CSS" |
+| Custom Popover CSS | Custom CSS for styling the popover (only shown when CSS Loading Mode is set to "Load custom CSS") | Empty |
+
+## Developer Hooks
+
+The Brand Assets plugin provides several filters for developers to customize functionality:
+
+### Filters
+
+#### `brand_assets_frontend_css_path`
+
+Filter the path to the frontend CSS file used for styling the logo popover.
+
+**Parameters:**
+- `string $css_file_path` - The path to the CSS file
+
+**Default:** `BRAND_ASSETS_PLUGIN_DIR . 'assets/frontend.css'`
+
+**Example:**
+```php
+add_filter( 'brand_assets_frontend_css_path', function( $path ) {
+    return get_template_directory() . '/custom-brand-assets.css';
+});
+```
+
+#### `brand_assets_pattern_file_path`
+
+Filter the path to the brand page pattern file used for block pattern registration.
+
+**Parameters:**
+- `string $pattern_file_path` - The path to the pattern file
+
+**Default:** `BRAND_ASSETS_PLUGIN_DIR . 'includes/brand-page-pattern.inc'`
+
+**Example:**
+```php
+add_filter( 'brand_assets_pattern_file_path', function( $path ) {
+    return get_template_directory() . '/custom-brand-pattern.inc';
+});
+```
 
 ## Architecture
 
@@ -103,6 +223,7 @@ The Brand Assets plugin is built using modern object-oriented PHP with the follo
 
 - **`Brand_Assets`**: Main plugin class implementing singleton pattern
 - **`Brand_Assets_Settings`**: Handles admin settings and configuration
+- **`Brand_Assets_Options`**: Manages plugin options and default values
 - **`Brand_Assets_Frontend`**: Manages frontend functionality and popover display
 
 ### Key Features
