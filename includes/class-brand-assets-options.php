@@ -81,34 +81,6 @@ final class Brand_Assets_Options {
 	}
 
 	/**
-	 * Get default CSS from the frontend.css file.
-	 *
-	 * @since 0.1.0
-	 * @return string
-	 */
-	private function get_default_css() {
-		/**
-		 * Filter the path to the frontend CSS file.
-		 *
-		 * Allows developers to customize the location of the frontend CSS file
-		 * used for styling the logo popover. The CSS file should contain styles
-		 * for the #brand_assets_logo_popover element and its children.
-		 *
-		 * @since 0.1.0
-		 * @param string $css_file_path The path to the CSS file. Default: BRAND_ASSETS_PLUGIN_DIR . 'assets/frontend.css'
-		 */
-		$css_file = apply_filters( 'brand_assets_frontend_css_path', BRAND_ASSETS_PLUGIN_DIR . 'assets/frontend.css' );
-
-		if ( file_exists( $css_file ) ) {
-			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- This is a valid use of file_get_contents.
-			$css_content = file_get_contents( $css_file );
-			return $css_content ? $css_content : '';
-		}
-
-		return '';
-	}
-
-	/**
 	 * Sanitize and validate input values.
 	 * Ensures empty strings fall back to defaults so frontend does not need inline fallbacks.
 	 *
