@@ -81,7 +81,6 @@ final class Brand_Assets {
 	private function init_hooks() {
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
-		add_filter( 'the_content', array( $this, 'filter_download_links' ) );
 		// Register settings link hook immediately.
 		add_filter( 'plugin_action_links_' . plugin_basename( BRAND_ASSETS_PLUGIN_FILE ), array( $this, 'add_settings_link' ) );
 		register_activation_hook( BRAND_ASSETS_PLUGIN_FILE, array( $this, 'activate' ) );
@@ -132,65 +131,6 @@ final class Brand_Assets {
 	 */
 	private function register_block() {
 		register_block_type( BRAND_ASSETS_PLUGIN_DIR . 'build' );
-	}
-
-	/**
-	 * Filter content to add download attribute to links within list items that have ba-download class.
-	 *
-	 * This allows users to add the ba-download class to list items in Gutenberg,
-	 * and all links within those list items will automatically get the download attribute.
-	 *
-	 * @since 0.1.0
-	 * @param string $content The post content.
-	 * @return string Modified content.
-	 */
-	public function filter_download_links( $content ) {
-		// Only process if content contains ba-download class.
-		if ( strpos( $content, 'ba-download' ) === false ) {
-			return $content;
-		}
-
-		// Use DOMDocument to parse and modify the content.
-		$dom = new DOMDocument();
-
-		// Suppress errors for malformed HTML.
-		libxml_use_internal_errors( true );
-
-		// Load content with UTF-8 encoding.
-		$dom->loadHTML( '<?xml encoding="UTF-8">' . $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
-
-		// Clear any libxml errors.
-		libxml_clear_errors();
-
-		// Find all list items with ba-download class.
-		$xpath      = new DOMXPath( $dom );
-		$list_items = $xpath->query( '//li[contains(@class, "ba-download")]' );
-
-		foreach ( $list_items as $list_item ) {
-			/**
-			 * Find all links within this list item.
-			 *
-			 * @var DOMElement $list_item The list item.
-			 */
-			$links = $xpath->query( './/a', $list_item );
-
-			foreach ( $links as $link ) {
-				/**
-				 * The link.
-				 *
-				 * @var DOMElement $link The link.
-				 */
-				$link->setAttribute( 'download', '' );
-			}
-		}
-
-		// Get the modified HTML.
-		$modified_content = $dom->saveHTML();
-
-		// Remove the XML declaration that was added.
-		$modified_content = preg_replace( '/^<\?xml[^>]*\?>/', '', $modified_content );
-
-		return $modified_content;
 	}
 
 	/**

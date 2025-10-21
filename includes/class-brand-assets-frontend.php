@@ -78,6 +78,14 @@ final class Brand_Assets_Frontend {
 						popover.hidePopover();
 					}
 				}, false);
+
+				// Add download attribute to all download links.
+				const downloadElements = document.querySelectorAll( ".ba-download a" );
+				if ( 0 < downloadElements.length ) {
+					downloadElements.forEach( element => {
+						element.setAttribute( "download", "" );
+					} );
+				}
 			});',
 			esc_js( $options['logo_selector'] )
 		);
