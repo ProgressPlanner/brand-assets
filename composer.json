@@ -1,0 +1,47 @@
+{
+	"name": "progressplanner/brand-assets",
+	"description": "WordPress plugin for displaying brand assets including color palettes",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "Team Progress Planner",
+			"email": "hello@progressplanner.com",
+			"homepage": "https://progressplanner.com"
+		}
+	],
+	"keywords": [
+		"wordpress",
+		"plugin",
+		"brand",
+		"assets",
+		"colors",
+		"palette"
+	],
+	"homepage": "https://progressplanner.com/plugins/brand-assets/",
+	"support": {
+		"issues": "https://github.com/progressplanner/brand-assets/issues",
+		"source": "https://github.com/progressplanner/brand-assets"
+	},
+	"require": {
+		"php": ">=7.4"
+	},
+	"require-dev": {
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+		"phpcompatibility/phpcompatibility-wp": "^2.1",
+		"squizlabs/php_codesniffer": "^3.7",
+		"wp-coding-standards/wpcs": "^3.0"
+	},
+	"scripts": {
+		"phpcs": "phpcs",
+		"phpcbf": "phpcbf",
+		"phpcs:check": "phpcs --standard=phpcs.xml",
+		"phpcs:fix": "phpcbf --standard=phpcs.xml",
+		"phpcompatibility": "phpcs --standard=PHPCompatibilityWP --extensions=php --runtime-set testVersion 7.4-"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
+}

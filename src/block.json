@@ -1,10 +1,10 @@
 {
 	"apiVersion": 2,
-	"name": "my-plugin/color-scheme",
-	"title": "Color Scheme",
+	"name": "brand-assets/brand-assets",
+	"title": "Color Palette - Brand Assets",
 	"icon": "art",
 	"category": "design",
-	"description": "A block that displays a color scheme of your choice.",
+	"description": "A block that displays your brand color palette with customizable swatches and styling options.",
 	"supports": {
 		"align": true
 	},
