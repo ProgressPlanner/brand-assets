@@ -80,7 +80,6 @@ final class Brand_Assets {
 	 */
 	private function init_hooks() {
 		add_action( 'init', array( $this, 'init' ) );
-		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		// Register settings link hook immediately.
 		add_filter( 'plugin_action_links_' . plugin_basename( BRAND_ASSETS_PLUGIN_FILE ), array( $this, 'add_settings_link' ) );
 		register_activation_hook( BRAND_ASSETS_PLUGIN_FILE, array( $this, 'activate' ) );
@@ -107,20 +106,6 @@ final class Brand_Assets {
 
 		// Register block patterns.
 		$this->register_block_patterns();
-	}
-
-	/**
-	 * Load plugin textdomain.
-	 *
-	 * @since 0.1.0
-	 * @return void
-	 */
-	public function load_textdomain() {
-		load_plugin_textdomain(
-			'brand-assets',
-			false,
-			dirname( plugin_basename( BRAND_ASSETS_PLUGIN_FILE ) ) . '/languages'
-		);
 	}
 
 	/**

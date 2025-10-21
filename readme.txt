@@ -1,12 +1,12 @@
 === Brand Assets ===
 Contributors:      Team Progress Planner
 Tags:              block, brand, colors, design, assets
-Tested up to:      6.6
+Tested up to:      6.8
 Stable tag:        0.1.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-Easily display your company&#39;s brand assets including color schemes, logos, and brand guidelines.
+Easily display your company's brand assets including color schemes, logos, and brand guidelines.
 
 == Description ==
 
@@ -171,7 +171,7 @@ The plugin includes a pre-built block pattern that provides a complete template 
 == Changelog ==
 
 = 0.1.0 =
-* Release
+* Initial release.
 
 == Arbitrary section ==
 
