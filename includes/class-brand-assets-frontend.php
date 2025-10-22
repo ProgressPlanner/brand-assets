@@ -62,14 +62,16 @@ final class Brand_Assets_Frontend {
 		// Create the JavaScript.
 		$js = sprintf(
 			'document.addEventListener("DOMContentLoaded", function() {
-				const logoElement = document.querySelector("%s");
+				const logoElements = document.querySelectorAll("%s");
 				const popover = document.querySelector("#brand_assets_logo_popover");
 
-				if (logoElement) {
-					logoElement.addEventListener("contextmenu", function(event) {
-						event.preventDefault();
-						popover.showPopover();
-					}, false);
+				if (logoElements.length > 0) {
+					logoElements.forEach(logoElement => {
+						logoElement.addEventListener("contextmenu", function(event) {
+							event.preventDefault();
+							popover.showPopover();
+						}, false);
+					});
 				}
 
 				// Close popover on escape key
