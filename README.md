@@ -1,3 +1,14 @@
+[![CS](https://github.com/ProgressPlanner/brand-assets/actions/workflows/cs.yml/badge.svg)](https://github.com/ProgressPlanner/brand-assets/actions/workflows/cs.yml)
+
+[![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/brand-assets.svg)](https://wordpress.org/plugins/brand-assets/)
+![WordPress Plugin: Tested WP Version](https://img.shields.io/wordpress/plugin/tested/brand-assets.svg)
+[![WordPress Plugin Active Installs](https://img.shields.io/wordpress/plugin/installs/brand-assets.svg)](https://wordpress.org/plugins/brand-assets/advanced/)
+[![WordPress Plugin Downloads](https://img.shields.io/wordpress/plugin/dt/brand-assets.svg)](https://wordpress.org/plugins/brand-assets/advanced/)
+[![WordPress Plugin Rating](https://img.shields.io/wordpress/plugin/stars/brand-assets.svg)](https://wordpress.org/support/plugin/brand-assets/reviews/)
+[![GitHub](https://img.shields.io/github/license/ProgressPlanner/brand-assets.svg)](https://github.com/ProgressPlanner/brand-assets/blob/main/LICENSE)
+
+[![Try Brand Assets on the WordPress playground](https://img.shields.io/badge/Try%20Brand%20Assets%20on%20the%20WordPress%20Playground-%23117AC9.svg?style=for-the-badge&logo=WordPress&logoColor=ddd)](https://playground.progressplanner.com/#ewoJImxhbmRpbmdQYWdlIjogIi93cC1hZG1pbi9vcHRpb25zLWdlbmVyYWwucGhwP3BhZ2U9YnJhbmQtYXNzZXRzLXNldHRpbmdzIiwKCSJzdGVwcyI6IFsKCQl7CgkJCSJzdGVwIjogImluc3RhbGxQbHVnaW4iLAoJCQkicGx1Z2luRGF0YSI6IHsKCQkJCSJyZXNvdXJjZSI6ICJ1cmwiLAoJCQkJInVybCI6ICJodHRwczovL2dpdGh1Yi5jb20vUHJvZ3Jlc3NQbGFubmVyL2JyYW5kLWFzc2V0cy9hcmNoaXZlL3JlZnMvaGVhZHMvbWFpbi56aXAiCgkJCX0sCgkJCSJvcHRpb25zIjogewoJCQkJImFjdGl2YXRlIjogdHJ1ZQoJCQl9CgkJfQoJXQp9)
+
 # Brand Assets
 
 A WordPress block plugin that allows you to easily display your company's brand assets on your website. Perfect for showcasing your brand identity, color schemes, and design guidelines.
