@@ -133,8 +133,8 @@ final class Brand_Assets_Frontend {
 	 * Print inline script to copy color values to clipboard.
 	 *
 	 * @since 0.1.0
-	 * @param string  $block_content The block content.
-	 * @param array   $block The block.
+	 * @param string $block_content The block content.
+	 * @param array  $block The block.
 	 * @return string The block content.
 	 */
 	public function enqueue_copy_color_script( $block_content, $block ) {
