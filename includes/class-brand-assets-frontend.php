@@ -27,6 +27,14 @@ final class Brand_Assets_Frontend {
 	private $popover_options = array();
 
 	/**
+	 * Flag to check if the copy script has been enqueued.
+	 *
+	 * @since 0.1.0
+	 * @var bool
+	 */
+	private $copy_script_enqueued = false;
+
+	/**
 	 * Initialize WordPress hooks
 	 *
 	 * @since 0.1.0
@@ -35,6 +43,7 @@ final class Brand_Assets_Frontend {
 	public function init_hooks() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_action( 'wp_footer', array( $this, 'add_popover_html' ) );
+		add_filter( 'render_block', [ $this, 'enqueue_copy_color_script' ], 10, 2 );
 	}
 
 	/**
@@ -56,58 +65,6 @@ final class Brand_Assets_Frontend {
 				if ( 0 < downloadElements.length ) {
 					downloadElements.forEach( element => {
 						element.setAttribute( "download", "" );
-					} );
-				}
-
-				// Copy the color value to clipboard when clicking the color swatch.
-				const colorElements = document.querySelectorAll( ".wp-block-brand-assets-brand-assets .swatch code" );
-				if ( 0 < colorElements.length ) {
-					colorElements.forEach( element => {
-						element.addEventListener( "click", async function(event) {
-							event.preventDefault();
-							let color = element.textContent;
-
-							// Remove the "CMYK: " prefix if it exists.
-							if ( color.startsWith( "CMYK:" ) ) {
-								color = color.substring( 5 );
-							}
-
-							color = color.trim();
-
-							// Try modern Clipboard API first
-							try {
-								await navigator.clipboard.writeText( color );
-
-								// Add visual feedback
-								element.classList.add( "copied" );
-								setTimeout( () => {
-									element.classList.remove( "copied" );
-								}, 500 );
-							} catch ( err ) {
-
-								// Fallback to execCommand
-								const textArea = document.createElement( "textarea" );
-								textArea.value = color;
-								textArea.style.position = "fixed";
-								textArea.style.left = "-999999px";
-								document.body.appendChild( textArea );
-								textArea.select();
-
-								try {
-									document.execCommand( "copy" );
-
-									// Add visual feedback
-									element.classList.add( "copied" );
-									setTimeout( () => {
-										element.classList.remove( "copied" );
-									}, 500 );
-								} catch ( fallbackErr ) {
-									console.error( "Fallback copy failed:", fallbackErr );
-								}
-
-								document.body.removeChild( textArea );
-							}
-						} );
 					} );
 				}
 			});';
@@ -170,6 +127,84 @@ final class Brand_Assets_Frontend {
 		if ( ! empty( $css_to_load ) ) {
 			wp_add_inline_style( 'brand-assets-popover', $css_to_load );
 		}
+	}
+
+	/**
+	 * Print inline script to copy color values to clipboard.
+	 *
+	 * @since 0.1.0
+	 * @return void
+	 * @param string $block_content The block content.
+	 * @param array $block The block.
+	 */
+	public function enqueue_copy_color_script( $block_content, $block ) {
+		// Only enqueue the script if we're on a brand assets block.
+		if ( 'brand-assets/brand-assets' === $block['blockName'] ) {
+			// And do it only once.
+			if ( ! $this->copy_script_enqueued ) {
+				$js = 'document.addEventListener("DOMContentLoaded", function() {
+						// Copy the color value to clipboard when clicking the color swatch.
+						const colorElements = document.querySelectorAll( ".wp-block-brand-assets-brand-assets .swatch code" );
+						if ( 0 < colorElements.length ) {
+							colorElements.forEach( element => {
+								element.addEventListener( "click", async function(event) {
+									event.preventDefault();
+									let color = element.textContent;
+
+									// Remove the "CMYK: " prefix if it exists.
+									if ( color.startsWith( "CMYK:" ) ) {
+										color = color.substring( 5 );
+									}
+
+									color = color.trim();
+
+									// Try modern Clipboard API first
+									try {
+										await navigator.clipboard.writeText( color );
+
+										// Add visual feedback
+										element.classList.add( "copied" );
+										setTimeout( () => {
+											element.classList.remove( "copied" );
+										}, 500 );
+									} catch ( err ) {
+
+										// Fallback to execCommand
+										const textArea = document.createElement( "textarea" );
+										textArea.value = color;
+										textArea.style.position = "fixed";
+										textArea.style.left = "-999999px";
+										document.body.appendChild( textArea );
+										textArea.select();
+
+										try {
+											document.execCommand( "copy" );
+
+											// Add visual feedback
+											element.classList.add( "copied" );
+											setTimeout( () => {
+												element.classList.remove( "copied" );
+											}, 500 );
+										} catch ( fallbackErr ) {
+											console.error( "Fallback copy failed:", fallbackErr );
+										}
+
+										document.body.removeChild( textArea );
+									}
+								} );
+							} );
+						}
+					});';
+
+				// Print inline script.
+				wp_register_script( 'brand-assets-copy', false, array(), BRAND_ASSETS_VERSION, true );
+				wp_enqueue_script( 'brand-assets-copy' );
+				wp_add_inline_script( 'brand-assets-copy', $js );
+				$this->copy_script_enqueued = true;
+			}
+		}
+
+		return $block_content;
 	}
 
 	/**
