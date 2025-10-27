@@ -46,8 +46,64 @@ final class Brand_Assets_Frontend {
 	public function enqueue_scripts() {
 		$options = Brand_Assets::get_instance()->options->get_all();
 
+		// Register and enqueue our own script handle.
+		wp_register_script( 'brand-assets-popover', false, array(), BRAND_ASSETS_VERSION, true );
+		wp_enqueue_script( 'brand-assets-popover' );
+
+		$js = 'document.addEventListener("DOMContentLoaded", function() {
+				// Add download attribute to all download links.
+				const downloadElements = document.querySelectorAll( ".ba-download a" );
+				if ( 0 < downloadElements.length ) {
+					downloadElements.forEach( element => {
+						element.setAttribute( "download", "" );
+					} );
+				}
+
+				// Copy the color value to clipboard when clicking the color swatch.
+				const colorElements = document.querySelectorAll( ".wp-block-brand-assets-brand-assets .swatch code" );
+				if ( 0 < colorElements.length ) {
+					colorElements.forEach( element => {
+						element.addEventListener( "click", async function(event) {
+							event.preventDefault();
+							let color = element.textContent;
+
+							// Remove the "CMYK: " prefix if it exists.
+							if ( color.startsWith( "CMYK:" ) ) {
+								color = color.substring( 5 );
+							}
+
+							color = color.trim();
+
+							// Try modern Clipboard API first
+							try {
+								await navigator.clipboard.writeText( color );
+							} catch ( err ) {
+
+								// Fallback to execCommand
+								const textArea = document.createElement( "textarea" );
+								textArea.value = color;
+								textArea.style.position = "fixed";
+								textArea.style.left = "-999999px";
+								document.body.appendChild( textArea );
+								textArea.select();
+
+								try {
+									document.execCommand( "copy" );
+								} catch ( fallbackErr ) {
+									console.error( "Fallback copy failed:", fallbackErr );
+								}
+
+								document.body.removeChild( textArea );
+							}
+						} );
+					} );
+				}
+			});';
+
 		// Only enqueue if we have a brand page selected.
 		if ( empty( $options['brand_page_id'] ) ) {
+			// But inline JS can be used without the page being selected.
+			wp_add_inline_script( 'brand-assets-popover', $js );
 			return;
 		}
 
@@ -55,12 +111,9 @@ final class Brand_Assets_Frontend {
 		wp_register_style( 'brand-assets-popover', false, array(), BRAND_ASSETS_VERSION );
 		wp_enqueue_style( 'brand-assets-popover' );
 
-		// Register and enqueue our own script handle.
-		wp_register_script( 'brand-assets-popover', false, array(), BRAND_ASSETS_VERSION, true );
-		wp_enqueue_script( 'brand-assets-popover' );
-
 		// Create the JavaScript.
-		$js = sprintf(
+		$js .= PHP_EOL;
+		$js .= sprintf(
 			'document.addEventListener("DOMContentLoaded", function() {
 				const logoElements = document.querySelectorAll("%s");
 				const popover = document.querySelector("#brand_assets_logo_popover");
@@ -80,14 +133,6 @@ final class Brand_Assets_Frontend {
 						popover.hidePopover();
 					}
 				}, false);
-
-				// Add download attribute to all download links.
-				const downloadElements = document.querySelectorAll( ".ba-download a" );
-				if ( 0 < downloadElements.length ) {
-					downloadElements.forEach( element => {
-						element.setAttribute( "download", "" );
-					} );
-				}
 			});',
 			esc_js( $options['logo_selector'] )
 		);
