@@ -43,7 +43,7 @@ final class Brand_Assets_Frontend {
 	public function init_hooks() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_action( 'wp_footer', array( $this, 'add_popover_html' ) );
-		add_filter( 'render_block', [ $this, 'enqueue_copy_color_script' ], 10, 2 );
+		add_filter( 'render_block', array( $this, 'enqueue_copy_color_script' ), 10, 2 );
 	}
 
 	/**
@@ -133,9 +133,9 @@ final class Brand_Assets_Frontend {
 	 * Print inline script to copy color values to clipboard.
 	 *
 	 * @since 0.1.0
-	 * @return void
-	 * @param string $block_content The block content.
-	 * @param array $block The block.
+	 * @param string  $block_content The block content.
+	 * @param array   $block The block.
+	 * @return string The block content.
 	 */
 	public function enqueue_copy_color_script( $block_content, $block ) {
 		// Only enqueue the script if we're on a brand assets block.
