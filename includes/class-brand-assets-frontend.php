@@ -77,6 +77,12 @@ final class Brand_Assets_Frontend {
 							// Try modern Clipboard API first
 							try {
 								await navigator.clipboard.writeText( color );
+
+								// Add visual feedback
+								element.classList.add( "copied" );
+								setTimeout( () => {
+									element.classList.remove( "copied" );
+								}, 500 );
 							} catch ( err ) {
 
 								// Fallback to execCommand
@@ -89,6 +95,12 @@ final class Brand_Assets_Frontend {
 
 								try {
 									document.execCommand( "copy" );
+
+									// Add visual feedback
+									element.classList.add( "copied" );
+									setTimeout( () => {
+										element.classList.remove( "copied" );
+									}, 500 );
 								} catch ( fallbackErr ) {
 									console.error( "Fallback copy failed:", fallbackErr );
 								}
