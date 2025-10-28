@@ -19,6 +19,7 @@ export default function save( { attributes } ) {
 		borderWidth,
 		borderRadius,
 		borderColor,
+		showCMYK,
 	} = attributes;
 
 	return (
@@ -46,7 +47,7 @@ export default function save( { attributes } ) {
 						>
 							<span className={ 'name' }>{ swatch.name }</span>
 							<code>{ swatch.color.toUpperCase() }</code>
-							{ swatch.showCMYK && (
+							{ showCMYK && swatch.cmyk && (
 								<code className={ 'small' }>
 									{ 'CMYK: ' + swatch.cmyk }
 								</code>
