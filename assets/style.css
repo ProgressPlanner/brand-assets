@@ -30,8 +30,30 @@
         display: block;
         font-size: 80%;
         font-family: monospace;
+		cursor: copy;
+
+		position: relative;
+
+		&.copied {
+			animation: brandAssetsCopyFeedback 0.5s ease;
+		}
     }
     code.small {
         font-size: 70%;
     }
+}
+
+@keyframes brandAssetsCopyFeedback {
+	0% {
+		background-color: transparent;
+	}
+
+	50% {
+		background-color: #4CAF50;
+		color: #fff;
+	}
+
+	100% {
+		background-color: transparent;
+	}
 }
