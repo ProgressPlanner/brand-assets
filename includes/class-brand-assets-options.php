@@ -69,14 +69,24 @@ final class Brand_Assets_Options {
 	 */
 	public function get_defaults() {
 		return array(
-			'brand_page_id'    => 0,
-			'heading'          => __( 'Looking for our logo?', 'brand-assets' ),
-			'text_line1'       => __( "You're in the right spot!", 'brand-assets' ),
-			'text_line2'       => __( 'Check out our', 'brand-assets' ),
-			'link_text'        => __( 'Brand Assets page', 'brand-assets' ),
-			'logo_selector'    => '.wp-block-site-logo',
-			'css_loading_mode' => 'default',
-			'css'              => '',
+			'brand_page_id'           => 0,
+			'heading'                 => __( 'Looking for our logo?', 'brand-assets' ),
+			'text_line1'              => __( "You're in the right spot!", 'brand-assets' ),
+			'text_line2'              => __( 'Check out our', 'brand-assets' ),
+			'link_text'               => __( 'Brand Assets page', 'brand-assets' ),
+			'logo_selector'           => '.wp-block-site-logo',
+			'css_loading_mode'        => 'default',
+			// Popover styling options.
+			'popover_bg_color'        => '#ffffff',
+			'popover_text_color'      => '#000000',
+			'popover_border_color'    => '#cccccc',
+			'popover_border_width'    => 1,
+			'popover_border_radius'   => 8,
+			'popover_padding'         => 20,
+			'popover_max_width'       => 400,
+			'popover_font_size'       => 16,
+			'popover_link_color'      => '#0073aa',
+			'popover_close_btn_color' => '#666666',
 		);
 	}
 
@@ -117,16 +127,42 @@ final class Brand_Assets_Options {
 		$link_text        = sanitize_text_field( $input['link_text'] ?? '' );
 		$logo_selector    = sanitize_text_field( $input['logo_selector'] ?? '' );
 		$css_loading_mode = sanitize_text_field( $input['css_loading_mode'] ?? '' );
-		$css_input        = isset( $input['css'] ) ? wp_unslash( $input['css'] ) : '';
-		$css              = sanitize_textarea_field( $css_input );
+
+		// Migrate 'custom' mode to 'default' for backward compatibility.
+		if ( 'custom' === $css_loading_mode ) {
+			$css_loading_mode = 'default';
+		}
+
+		// Sanitize popover styling options.
+		$popover_bg_color        = sanitize_hex_color( $input['popover_bg_color'] ?? '' );
+		$popover_text_color      = sanitize_hex_color( $input['popover_text_color'] ?? '' );
+		$popover_border_color    = sanitize_hex_color( $input['popover_border_color'] ?? '' );
+		$popover_border_width    = absint( $input['popover_border_width'] ?? 0 );
+		$popover_border_radius   = absint( $input['popover_border_radius'] ?? 0 );
+		$popover_padding         = absint( $input['popover_padding'] ?? 0 );
+		$popover_max_width       = absint( $input['popover_max_width'] ?? 0 );
+		$popover_font_size       = absint( $input['popover_font_size'] ?? 0 );
+		$popover_link_color      = sanitize_hex_color( $input['popover_link_color'] ?? '' );
+		$popover_close_btn_color = sanitize_hex_color( $input['popover_close_btn_color'] ?? '' );
 
 		$sanitized['heading']          = $heading !== '' ? $heading : $defaults['heading'];
 		$sanitized['text_line1']       = $text_line1 !== '' ? $text_line1 : $defaults['text_line1'];
 		$sanitized['text_line2']       = $text_line2 !== '' ? $text_line2 : $defaults['text_line2'];
 		$sanitized['link_text']        = $link_text !== '' ? $link_text : $defaults['link_text'];
 		$sanitized['logo_selector']    = $logo_selector !== '' ? $logo_selector : $defaults['logo_selector'];
-		$sanitized['css_loading_mode'] = in_array( $css_loading_mode, array( 'default', 'custom', 'none' ), true ) ? $css_loading_mode : $defaults['css_loading_mode'];
-		$sanitized['css']              = $css !== '' ? $css : $defaults['css'];
+		$sanitized['css_loading_mode'] = in_array( $css_loading_mode, array( 'default', 'none' ), true ) ? $css_loading_mode : $defaults['css_loading_mode'];
+
+		// Add popover styling to sanitized array with fallback to defaults.
+		$sanitized['popover_bg_color']        = $popover_bg_color !== '' && $popover_bg_color !== null ? $popover_bg_color : $defaults['popover_bg_color'];
+		$sanitized['popover_text_color']      = $popover_text_color !== '' && $popover_text_color !== null ? $popover_text_color : $defaults['popover_text_color'];
+		$sanitized['popover_border_color']    = $popover_border_color !== '' && $popover_border_color !== null ? $popover_border_color : $defaults['popover_border_color'];
+		$sanitized['popover_border_width']    = $popover_border_width > 0 ? $popover_border_width : $defaults['popover_border_width'];
+		$sanitized['popover_border_radius']   = $popover_border_radius >= 0 ? $popover_border_radius : $defaults['popover_border_radius'];
+		$sanitized['popover_padding']         = $popover_padding > 0 ? $popover_padding : $defaults['popover_padding'];
+		$sanitized['popover_max_width']       = $popover_max_width > 0 ? $popover_max_width : $defaults['popover_max_width'];
+		$sanitized['popover_font_size']       = $popover_font_size > 0 ? $popover_font_size : $defaults['popover_font_size'];
+		$sanitized['popover_link_color']      = $popover_link_color !== '' && $popover_link_color !== null ? $popover_link_color : $defaults['popover_link_color'];
+		$sanitized['popover_close_btn_color'] = $popover_close_btn_color !== '' && $popover_close_btn_color !== null ? $popover_close_btn_color : $defaults['popover_close_btn_color'];
 
 		return $sanitized;
 	}
