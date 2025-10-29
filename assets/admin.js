@@ -5,7 +5,7 @@
  * - Color picker initialization
  * - CSS loading mode toggle for popover styling section
  *
- * @package
+ * @package BrandAssets
  * @since 0.1.0
  */
 
