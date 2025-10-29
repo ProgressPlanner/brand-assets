@@ -173,7 +173,7 @@ final class Brand_Assets_Frontend {
 			if ( ! $this->copy_script_enqueued ) {
 				wp_enqueue_script(
 					'brand-assets-copy',
-					plugins_url( 'assets/copy-color.js', dirname( __FILE__ ) ),
+					plugins_url( 'assets/copy-color.js', __DIR__ ),
 					array(),
 					BRAND_ASSETS_VERSION,
 					true

@@ -65,7 +65,7 @@ final class Brand_Assets_Settings {
 		// Enqueue our admin script.
 		wp_enqueue_script(
 			'brand-assets-admin',
-			plugins_url( 'assets/admin.js', dirname( __FILE__ ) ),
+			plugins_url( 'assets/admin.js', __DIR__ ),
 			array( 'jquery', 'wp-color-picker' ),
 			BRAND_ASSETS_VERSION,
 			true
@@ -116,7 +116,7 @@ final class Brand_Assets_Settings {
 						array(
 							'label'       => __( 'Brand Assets page', 'brand-assets' ),
 							'field_id'    => 'brand_page_id',
-							'field'       => function() use ( $page_options, $options ) {
+							'field'       => function () use ( $page_options, $options ) {
 								$this->render_select_field(
 									array(
 										'name' => Brand_Assets_Options::OPTIONS_NAME . '[brand_page_id]',
@@ -136,7 +136,7 @@ final class Brand_Assets_Settings {
 						array(
 							'label'       => __( 'Popover heading', 'brand-assets' ),
 							'field_id'    => 'popover_heading',
-							'field'       => function() use ( $options ) {
+							'field'       => function () use ( $options ) {
 								$this->render_input_field(
 									array(
 										'type'  => 'text',
@@ -155,7 +155,7 @@ final class Brand_Assets_Settings {
 						array(
 							'label'       => __( 'Popover text line 1', 'brand-assets' ),
 							'field_id'    => 'popover_text_line1',
-							'field'       => function() use ( $options ) {
+							'field'       => function () use ( $options ) {
 								$this->render_input_field(
 									array(
 										'type'  => 'text',
@@ -174,7 +174,7 @@ final class Brand_Assets_Settings {
 						array(
 							'label'       => __( 'Popover text line 2', 'brand-assets' ),
 							'field_id'    => 'popover_text_line2',
-							'field'       => function() use ( $options ) {
+							'field'       => function () use ( $options ) {
 								$this->render_input_field(
 									array(
 										'type'  => 'text',
@@ -193,7 +193,7 @@ final class Brand_Assets_Settings {
 						array(
 							'label'       => __( 'Link text', 'brand-assets' ),
 							'field_id'    => 'popover_link_text',
-							'field'       => function() use ( $options ) {
+							'field'       => function () use ( $options ) {
 								$this->render_input_field(
 									array(
 										'type'  => 'text',
@@ -214,7 +214,7 @@ final class Brand_Assets_Settings {
 						array(
 							'label'       => __( 'Logo selector', 'brand-assets' ),
 							'field_id'    => 'logo_selector',
-							'field'       => function() use ( $options ) {
+							'field'       => function () use ( $options ) {
 								$this->render_input_field(
 									array(
 										'type'  => 'text',
@@ -233,7 +233,7 @@ final class Brand_Assets_Settings {
 						array(
 							'label'       => __( 'CSS loading mode', 'brand-assets' ),
 							'field_id'    => 'css_loading_mode',
-							'field'       => function() use ( $options ) {
+							'field'       => function () use ( $options ) {
 								$this->render_select_field(
 									array(
 										'name' => Brand_Assets_Options::OPTIONS_NAME . '[css_loading_mode]',
@@ -268,7 +268,7 @@ final class Brand_Assets_Settings {
 						array(
 							'label'       => __( 'Background color', 'brand-assets' ),
 							'field_id'    => 'popover_bg_color',
-							'field'       => function() use ( $options ) {
+							'field'       => function () use ( $options ) {
 								$this->render_input_field(
 									array(
 										'type'  => 'text',
@@ -287,7 +287,7 @@ final class Brand_Assets_Settings {
 						array(
 							'label'       => __( 'Text color', 'brand-assets' ),
 							'field_id'    => 'popover_text_color',
-							'field'       => function() use ( $options ) {
+							'field'       => function () use ( $options ) {
 								$this->render_input_field(
 									array(
 										'type'  => 'text',
@@ -306,7 +306,7 @@ final class Brand_Assets_Settings {
 						array(
 							'label'       => __( 'Link color', 'brand-assets' ),
 							'field_id'    => 'popover_link_color',
-							'field'       => function() use ( $options ) {
+							'field'       => function () use ( $options ) {
 								$this->render_input_field(
 									array(
 										'type'  => 'text',
@@ -325,7 +325,7 @@ final class Brand_Assets_Settings {
 						array(
 							'label'       => __( 'Border color', 'brand-assets' ),
 							'field_id'    => 'popover_border_color',
-							'field'       => function() use ( $options ) {
+							'field'       => function () use ( $options ) {
 								$this->render_input_field(
 									array(
 										'type'  => 'text',
@@ -344,7 +344,7 @@ final class Brand_Assets_Settings {
 						array(
 							'label'       => __( 'Close button color', 'brand-assets' ),
 							'field_id'    => 'popover_close_btn_color',
-							'field'       => function() use ( $options ) {
+							'field'       => function () use ( $options ) {
 								$this->render_input_field(
 									array(
 										'type'  => 'text',
@@ -365,7 +365,7 @@ final class Brand_Assets_Settings {
 						array(
 							'label'       => __( 'Border width (px)', 'brand-assets' ),
 							'field_id'    => 'popover_border_width',
-							'field'       => function() use ( $options ) {
+							'field'       => function () use ( $options ) {
 								$this->render_input_field(
 									array(
 										'type'  => 'number',
@@ -386,7 +386,7 @@ final class Brand_Assets_Settings {
 						array(
 							'label'       => __( 'Border radius (px)', 'brand-assets' ),
 							'field_id'    => 'popover_border_radius',
-							'field'       => function() use ( $options ) {
+							'field'       => function () use ( $options ) {
 								$this->render_input_field(
 									array(
 										'type'  => 'number',
@@ -407,7 +407,7 @@ final class Brand_Assets_Settings {
 						array(
 							'label'       => __( 'Padding (px)', 'brand-assets' ),
 							'field_id'    => 'popover_padding',
-							'field'       => function() use ( $options ) {
+							'field'       => function () use ( $options ) {
 								$this->render_input_field(
 									array(
 										'type'  => 'number',
@@ -428,7 +428,7 @@ final class Brand_Assets_Settings {
 						array(
 							'label'       => __( 'Max width (px)', 'brand-assets' ),
 							'field_id'    => 'popover_max_width',
-							'field'       => function() use ( $options ) {
+							'field'       => function () use ( $options ) {
 								$this->render_input_field(
 									array(
 										'type'  => 'number',
@@ -449,7 +449,7 @@ final class Brand_Assets_Settings {
 						array(
 							'label'       => __( 'Font size (px)', 'brand-assets' ),
 							'field_id'    => 'popover_font_size',
-							'field'       => function() use ( $options ) {
+							'field'       => function () use ( $options ) {
 								$this->render_input_field(
 									array(
 										'type'  => 'number',
@@ -511,11 +511,11 @@ final class Brand_Assets_Settings {
 		}
 		echo '>';
 		foreach ( $options as $option ) {
-			$selected_attr = '';
+			echo '<option value="' . esc_attr( $option['value'] ) . '"';
 			if ( null !== $selected && (string) $option['value'] === (string) $selected ) {
-				$selected_attr = ' selected="selected"';
+				echo ' selected="selected"';
 			}
-			echo '<option value="' . esc_attr( $option['value'] ) . '"' . $selected_attr . '>' . esc_html( $option['label'] ) . '</option>';
+			echo '>' . esc_html( $option['label'] ) . '</option>';
 		}
 		echo '</select>';
 	}
@@ -540,7 +540,7 @@ final class Brand_Assets_Settings {
 			'field'       => null,
 			'description' => '',
 		);
-		$args = wp_parse_args( $args, $defaults );
+		$args     = wp_parse_args( $args, $defaults );
 
 		echo '<tr>';
 		echo '<th scope="row">';

@@ -25,6 +25,8 @@
 	<rule ref="Universal">
 	    <exclude name="Universal.Operators.DisallowShortTernary.Found"/>
 		<exclude name="Universal.Classes.DisallowFinalClass.FinalClassFound"/>
+		<exclude name="Universal.FunctionDeclarations.NoLongClosures.ExceedsRecommended"/>
+		<exclude name="Universal.FunctionDeclarations.NoLongClosures.ExceedsMaximum"/>
 	</rule>
 
 	<rule ref="WordPress">
