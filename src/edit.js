@@ -140,7 +140,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 				<div style={ { padding: '16px' } }>
 					<ToggleControl
 						style={ { marginLeft: '10px' } }
-						label={ __( 'Show CMYK values', 'color-scheme' ) }
+						label={ __( 'Show CMYK values', 'brand-assets' ) }
 						checked={ showCMYK }
 						onChange={ () =>
 							setAttributes( { showCMYK: ! showCMYK } )
@@ -148,12 +148,12 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					/>
 				</div>
 				<PanelBody
-					title={ __( 'Swatch dimensions', 'color-scheme' ) }
+					title={ __( 'Swatch dimensions', 'brand-assets' ) }
 					initialOpen={ false }
 				>
 					{ linked ? (
 						<RangeControl
-							label={ __( 'Swatch size', 'color-scheme' ) }
+							label={ __( 'Swatch size', 'brand-assets' ) }
 							value={ swatchWidth }
 							onChange={ ( value ) =>
 								updateDimensions( value, 'both' )
@@ -164,7 +164,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					) : (
 						<>
 							<RangeControl
-								label={ __( 'Swatch width', 'color-scheme' ) }
+								label={ __( 'Swatch width', 'brand-assets' ) }
 								value={ swatchWidth }
 								onChange={ ( value ) =>
 									updateDimensions( value, 'swatchWidth' )
@@ -173,7 +173,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 								max={ 300 }
 							/>
 							<RangeControl
-								label={ __( 'Swatch height', 'color-scheme' ) }
+								label={ __( 'Swatch height', 'brand-assets' ) }
 								value={ swatchHeight }
 								onChange={ ( value ) =>
 									updateDimensions( value, 'swatchHeight' )
@@ -186,13 +186,13 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					<ToggleControl
 						label={ __(
 							'Link swatch width & height',
-							'color-scheme'
+							'brand-assets'
 						) }
 						checked={ linked }
 						onChange={ () => setLinked( ! linked ) }
 					/>
 					<RangeControl
-						label={ __( 'Gap between colors', 'color-scheme' ) }
+						label={ __( 'Gap between colors', 'brand-assets' ) }
 						value={ swatchGap }
 						onChange={ ( value ) =>
 							setAttributes( { swatchGap: value } )
@@ -202,11 +202,11 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					/>
 				</PanelBody>
 				<PanelBody
-					title={ __( 'Border settings', 'color-scheme' ) }
+					title={ __( 'Border settings', 'brand-assets' ) }
 					initialOpen={ false }
 				>
 					<RangeControl
-						label={ __( 'Border width', 'color-scheme' ) }
+						label={ __( 'Border width', 'brand-assets' ) }
 						value={ borderWidth }
 						onChange={ ( value ) =>
 							setAttributes( { borderWidth: value } )
@@ -215,7 +215,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						max={ 10 }
 					/>
 					<RangeControl
-						label={ __( 'Border radius', 'color-scheme' ) }
+						label={ __( 'Border radius', 'brand-assets' ) }
 						value={ borderRadius }
 						onChange={ ( value ) =>
 							setAttributes( { borderRadius: value } )
@@ -233,7 +233,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 								{ name: 'Dark Gray', color: '#444444' },
 								{ name: 'Black', color: '#000000' },
 							] }
-							label={ __( 'Border color', 'color-scheme' ) }
+							label={ __( 'Border color', 'brand-assets' ) }
 							onChange={ ( value ) => {
 								console.log( 'New border color:', value );
 								setAttributes( { borderColor: value } );
@@ -242,11 +242,11 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						/>
 					) }
 				</PanelBody>
-				<PanelBody title={ __( 'Edit Swatch', 'color-scheme' ) }>
+				<PanelBody title={ __( 'Edit Swatch', 'brand-assets' ) }>
 					{ swatches[ selectedSwatchIndex ] && (
 						<>
 							<TextControl
-								label={ __( 'Color Name', 'color-scheme' ) }
+								label={ __( 'Color Name', 'brand-assets' ) }
 								value={ swatches[ selectedSwatchIndex ].name }
 								onChange={ ( name ) =>
 									updateSwatch( selectedSwatchIndex, {
@@ -278,7 +278,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 										>
 											{ __(
 												'CMYK Values',
-												'color-scheme'
+												'brand-assets'
 											) }
 										</label>
 										<Button
@@ -303,7 +303,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 										>
 											{ __(
 												'Calculate',
-												'color-scheme'
+												'brand-assets'
 											) }
 										</Button>
 									</div>
@@ -369,7 +369,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 								tabIndex={ 0 }
 								role="button"
 								aria-label={
-									__( 'Select swatch', 'color-scheme' ) +
+									__( 'Select swatch', 'brand-assets' ) +
 									': ' +
 									swatch.name
 								}
@@ -393,7 +393,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 											className={ 'delete' }
 											aria-label={ __(
 												'Delete Swatch',
-												'color-scheme'
+												'brand-assets'
 											) }
 										>
 											&times;
@@ -403,7 +403,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 												icon="arrow-left-alt2"
 												label={ __(
 													'Move Left',
-													'color-scheme'
+													'brand-assets'
 												) }
 												onClick={ ( e ) => {
 													e.stopPropagation();
@@ -436,7 +436,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 												icon="arrow-right-alt2"
 												label={ __(
 													'Move Right',
-													'color-scheme'
+													'brand-assets'
 												) }
 												onClick={ ( e ) => {
 													e.stopPropagation();
@@ -479,7 +479,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						onClick={ addSwatch }
 						className={ 'add_swatch' }
 					>
-						+ { __( 'Add Swatch', 'color-scheme' ) }
+						+ { __( 'Add Swatch', 'brand-assets' ) }
 					</Button>
 				</div>
 			</div>
