@@ -142,7 +142,9 @@ final class Brand_Assets {
 		}
 
 		// Load the brand page pattern.
-		$pattern_content = require $brand_page_pattern_file;
+		ob_start();
+		require $brand_page_pattern_file;
+		$pattern_content = ob_get_clean();
 		if ( ! $pattern_content ) {
 			return;
 		}
