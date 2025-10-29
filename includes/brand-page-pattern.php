@@ -1,3 +1,17 @@
+<?php
+/**
+ * Brand Page Pattern Template
+ *
+ * @package BrandAssets
+ * @since 0.1.0
+ */
+
+// Prevent direct access.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+return <<<'PATTERN'
 <!-- wp:group {"metadata":{"name":"Brand assets - Logo section"},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:columns -->
 <div class="wp-block-columns"><!-- wp:column -->
@@ -127,3 +141,4 @@
 <!-- wp:paragraph -->
 <p>If you have any questions on how to use our brand identity, please contact us!</p>
 <!-- /wp:paragraph -->
+PATTERN;
