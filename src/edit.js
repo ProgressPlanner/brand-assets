@@ -121,7 +121,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 	};
 
 	const updateDimensions = ( value, dimension ) => {
-		console.log( 'Updating dimensions:', value, dimension );
+		console.log( 'Updating dimensions:', value, dimension ); // eslint-disable-line no-console
 		if ( dimension === 'both' ) {
 			setAttributes( { swatchWidth: value, swatchHeight: value } );
 			maxBorderRadius = Math.max( value, attributes.borderRadius ) / 2;
@@ -235,7 +235,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 							] }
 							label={ __( 'Border color', 'brand-assets' ) }
 							onChange={ ( value ) => {
-								console.log( 'New border color:', value );
+								console.log( 'New border color:', value ); // eslint-disable-line no-console
 								setAttributes( { borderColor: value } );
 							} }
 							disableAlpha

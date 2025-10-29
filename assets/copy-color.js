@@ -1,17 +1,21 @@
 /**
  * Copy color values to clipboard when clicking color swatches
  *
- * @package BrandAssets
+ * @package
  * @since 0.1.0
  */
 
-document.addEventListener( 'DOMContentLoaded', function() {
+/* global navigator */
+
+document.addEventListener( 'DOMContentLoaded', function () {
 	// Copy the color value to clipboard when clicking the color swatch.
-	const colorElements = document.querySelectorAll( '.wp-block-brand-assets-brand-assets .swatch code' );
+	const colorElements = document.querySelectorAll(
+		'.wp-block-brand-assets-brand-assets .swatch code'
+	);
 
 	if ( 0 < colorElements.length ) {
-		colorElements.forEach( element => {
-			element.addEventListener( 'click', async function( event ) {
+		colorElements.forEach( ( element ) => {
+			element.addEventListener( 'click', async function ( event ) {
 				event.preventDefault();
 				let color = element.textContent;
 
@@ -49,7 +53,7 @@ document.addEventListener( 'DOMContentLoaded', function() {
 							element.classList.remove( 'copied' );
 						}, 500 );
 					} catch ( fallbackErr ) {
-						console.error( 'Fallback copy failed:', fallbackErr );
+						console.error( 'Fallback copy failed:', fallbackErr ); // eslint-disable-line no-console
 					}
 
 					document.body.removeChild( textArea );

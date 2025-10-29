@@ -5,11 +5,13 @@
  * - Color picker initialization
  * - CSS loading mode toggle for popover styling section
  *
- * @package BrandAssets
+ * @package
  * @since 0.1.0
  */
 
-jQuery( document ).ready( function( $ ) {
+/* global jQuery */
+
+jQuery( document ).ready( function ( $ ) {
 	// Initialize WordPress color pickers
 	$( '.brand-assets-color-picker' ).wpColorPicker();
 
@@ -20,9 +22,7 @@ jQuery( document ).ready( function( $ ) {
 	 * an informational notice instead, since CSS variables won't be output.
 	 */
 	function togglePopoverStyling() {
-		var cssMode = $( '#css_loading_mode' ).val();
-
-		if ( cssMode === 'none' ) {
+		if ( $( '#css_loading_mode' ).val() === 'none' ) {
 			$( '#popover-styling-section' ).hide();
 			$( '#popover-styling-notice' ).show();
 		} else {
