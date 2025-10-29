@@ -1,5 +1,5 @@
 === Brand Assets ===
-Contributors:      Team Progress Planner
+Contributors:      joostdevalk, aristath, filipi, progressplanner
 Tags:              block, brand, colors, design, assets
 Tested up to:      6.8
 Stable tag:        0.1.0
@@ -122,10 +122,10 @@ The Brand Assets plugin comes with a pre-built block pattern that provides a com
 4. **Logo Selector**: Specify the CSS selector for your logo element (default: `.wp-block-site-logo`)
 5. **CSS Loading Mode**: Choose how CSS should be loaded for the popover:
    * Load the default CSS (recommended)
-   * Load custom CSS (allows you to provide your own CSS)
-   * Load no CSS (for advanced users)
-6. **Custom Popover CSS**: If you selected "Load custom CSS", you can provide your own CSS for styling the popover
-7. Click **Save Changes**
+   * Load no CSS (for advanced users who want to provide custom CSS via their theme)
+6. Click **Save Changes**
+
+**Note**: If you need custom CSS for the popover, you can use the `brand_assets_frontend_css_path` filter hook in your theme to point to a custom CSS file.
 
 The popover will only appear if you have selected a brand assets page in the settings.
 

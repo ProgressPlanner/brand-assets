@@ -1,35 +1,64 @@
 #brand_assets_logo_popover {
-	padding: 30px;
-	border-radius: 10px;
+	/* CSS Custom Properties - can be overridden via plugin settings */
+	--ba-popover-bg: #ffffff;
+	--ba-popover-text-color: #000000;
+	--ba-popover-link-color: #0073aa;
+	--ba-popover-border-color: #cccccc;
+	--ba-popover-border-width: 1px;
+	--ba-popover-border-radius: 8px;
+	--ba-popover-padding: 20px;
+	--ba-popover-max-width: 400px;
+	--ba-popover-font-size: 16px;
+	--ba-close-btn-color: #666666;
+
+	/* Apply custom properties */
+	background: var(--ba-popover-bg);
+	color: var(--ba-popover-text-color);
+	border: var(--ba-popover-border-width) solid var(--ba-popover-border-color);
+	border-radius: var(--ba-popover-border-radius);
+	padding: var(--ba-popover-padding);
+	max-width: var(--ba-popover-max-width);
+	font-size: var(--ba-popover-font-size);
 
 	&::backdrop {
 		background: rgba(0, 0, 0, 0.75);
 	}
 	h1 {
 		font-size: 1.2em;
+		color: var(--ba-popover-text-color);
+		margin: 0 0 15px 0;
 	}
 	p {
-		margin: 20px 0;
+		margin: 10px 0;
 		line-height: 1.5;
+		color: var(--ba-popover-text-color);
 	}
 	a {
+		color: var(--ba-popover-link-color);
 		font-weight: bold;
 		text-decoration: underline;
+
+		&:hover {
+			opacity: 0.8;
+		}
 	}
 	button.close {
 		border: none;
-		background-color: #fff;
-		color: #ddd;
-		font-size: 1em;
+		background-color: transparent;
+		color: var(--ba-close-btn-color);
+		font-size: 1.5em;
 		font-weight: bold;
 		position: absolute;
 		right: 8px;
 		top: 5px;
 		padding: 5px;
+		line-height: 1;
+		width: 30px;
+		height: 30px;
+		cursor: pointer;
 
 		&:hover {
-			cursor: pointer;
-			color: #000;
+			opacity: 0.7;
 		}
 	}
 }

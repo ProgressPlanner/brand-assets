@@ -110,27 +110,56 @@ final class Brand_Assets_Frontend {
 		wp_add_inline_script( 'brand-assets-popover', $js );
 
 		// Handle CSS based on loading mode.
-		$css_to_load = '';
-		switch ( $options['css_loading_mode'] ) {
-			case 'default':
-				$css_to_load = $this->get_default_css();
-				break;
-			case 'custom':
-				$css_to_load = $options['css'];
-				break;
-			case 'none':
-			default:
-				break;
-		}
+		if ( 'default' === $options['css_loading_mode'] ) {
+			$css_to_load = $this->get_default_css();
+			// Add inline styles if we have CSS to load.
+			if ( ! empty( $css_to_load ) ) {
+				// CSS is loaded from a file, so it's safe. Still use wp_strip_all_tags as a safety measure.
+				wp_add_inline_style( 'brand-assets-popover', wp_strip_all_tags( $css_to_load ) );
+			}
 
-		// Add inline styles if we have CSS to load.
-		if ( ! empty( $css_to_load ) ) {
-			wp_add_inline_style( 'brand-assets-popover', $css_to_load );
+			// Add CSS custom properties for user styling options.
+			wp_add_inline_style( 'brand-assets-popover', $this->generate_css_variables( $options ) );
 		}
+		// If mode is 'none', don't load any CSS.
 	}
 
 	/**
-	 * Print inline script to copy color values to clipboard.
+	 * Generate CSS custom properties from user options.
+	 *
+	 * @since 0.1.0
+	 * @param array $options Plugin options.
+	 * @return string CSS custom properties.
+	 */
+	private function generate_css_variables( $options ) {
+		return sprintf(
+			'#brand_assets_logo_popover {
+				--ba-popover-bg: %s;
+				--ba-popover-text-color: %s;
+				--ba-popover-link-color: %s;
+				--ba-popover-border-color: %s;
+				--ba-popover-border-width: %spx;
+				--ba-popover-border-radius: %spx;
+				--ba-popover-padding: %spx;
+				--ba-popover-max-width: %spx;
+				--ba-popover-font-size: %spx;
+				--ba-close-btn-color: %s;
+			}',
+			esc_attr( $options['popover_bg_color'] ),
+			esc_attr( $options['popover_text_color'] ),
+			esc_attr( $options['popover_link_color'] ),
+			esc_attr( $options['popover_border_color'] ),
+			absint( $options['popover_border_width'] ),
+			absint( $options['popover_border_radius'] ),
+			absint( $options['popover_padding'] ),
+			absint( $options['popover_max_width'] ),
+			absint( $options['popover_font_size'] ),
+			esc_attr( $options['popover_close_btn_color'] )
+		);
+	}
+
+	/**
+	 * Enqueue script to copy color values to clipboard.
 	 *
 	 * @since 0.1.0
 	 * @param string $block_content The block content.
@@ -142,64 +171,13 @@ final class Brand_Assets_Frontend {
 		if ( 'brand-assets/brand-assets' === $block['blockName'] ) {
 			// And do it only once.
 			if ( ! $this->copy_script_enqueued ) {
-				$js = 'document.addEventListener("DOMContentLoaded", function() {
-						// Copy the color value to clipboard when clicking the color swatch.
-						const colorElements = document.querySelectorAll( ".wp-block-brand-assets-brand-assets .swatch code" );
-						if ( 0 < colorElements.length ) {
-							colorElements.forEach( element => {
-								element.addEventListener( "click", async function(event) {
-									event.preventDefault();
-									let color = element.textContent;
-
-									// Remove the "CMYK: " prefix if it exists.
-									if ( color.startsWith( "CMYK:" ) ) {
-										color = color.substring( 5 );
-									}
-
-									color = color.trim();
-
-									// Try modern Clipboard API first
-									try {
-										await navigator.clipboard.writeText( color );
-
-										// Add visual feedback
-										element.classList.add( "copied" );
-										setTimeout( () => {
-											element.classList.remove( "copied" );
-										}, 500 );
-									} catch ( err ) {
-
-										// Fallback to execCommand
-										const textArea = document.createElement( "textarea" );
-										textArea.value = color;
-										textArea.style.position = "fixed";
-										textArea.style.left = "-999999px";
-										document.body.appendChild( textArea );
-										textArea.select();
-
-										try {
-											document.execCommand( "copy" );
-
-											// Add visual feedback
-											element.classList.add( "copied" );
-											setTimeout( () => {
-												element.classList.remove( "copied" );
-											}, 500 );
-										} catch ( fallbackErr ) {
-											console.error( "Fallback copy failed:", fallbackErr );
-										}
-
-										document.body.removeChild( textArea );
-									}
-								} );
-							} );
-						}
-					});';
-
-				// Print inline script.
-				wp_register_script( 'brand-assets-copy', false, array(), BRAND_ASSETS_VERSION, true );
-				wp_enqueue_script( 'brand-assets-copy' );
-				wp_add_inline_script( 'brand-assets-copy', $js );
+				wp_enqueue_script(
+					'brand-assets-copy',
+					plugins_url( 'assets/copy-color.js', __DIR__ ),
+					array(),
+					BRAND_ASSETS_VERSION,
+					true
+				);
 				$this->copy_script_enqueued = true;
 			}
 		}

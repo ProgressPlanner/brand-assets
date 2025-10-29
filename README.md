@@ -186,7 +186,25 @@ The Brand Assets plugin includes a comprehensive settings page accessible via:
 | Link Text | Text for the link to your brand assets page | "brand assets" |
 | Logo Selector | CSS selector for the logo element | ".wp-block-site-logo" |
 | CSS Loading Mode | Choose how CSS should be loaded for the popover | "Load the default CSS" |
-| Custom Popover CSS | Custom CSS for styling the popover (only shown when CSS Loading Mode is set to "Load custom CSS") | Empty |
+
+### Popover Styling Options
+
+Customize the visual appearance of the logo popover with these settings:
+
+| Setting | Description | Default |
+|---------|-------------|---------|
+| Background Color | Background color of the popover | #ffffff (white) |
+| Text Color | Text color in the popover | #000000 (black) |
+| Link Color | Color of links in the popover | #0073aa (blue) |
+| Border Color | Border color of the popover | #cccccc (light gray) |
+| Close Button Color | Color of the close button | #666666 (gray) |
+| Border Width | Border width in pixels | 1px |
+| Border Radius | Border radius in pixels for rounded corners | 8px |
+| Padding | Internal padding in pixels | 20px |
+| Max Width | Maximum width of the popover in pixels | 400px |
+| Font Size | Font size in pixels | 16px |
+
+**Note:** These styling options use CSS custom properties (CSS variables) under the hood, providing a safe and WordPress.org-compliant way to customize the popover appearance without allowing arbitrary CSS input.
 
 ## Developer Hooks
 
@@ -206,9 +224,14 @@ Filter the path to the frontend CSS file used for styling the logo popover.
 **Example:**
 ```php
 add_filter( 'brand_assets_frontend_css_path', function( $path ) {
-    return get_template_directory() . '/custom-brand-assets.css';
+    return get_stylesheet_directory() . '/custom-brand-assets.css';
 });
 ```
+
+**Custom CSS for Popover:**
+If you need to customize the popover styling, create a custom CSS file in your theme and use the filter above to point to it. Then set the CSS Loading Mode to "Load no CSS" in the plugin settings if you want to completely replace the default styles, or leave it as "Load the default CSS" to extend the default styles.
+
+Example custom CSS file location: `wp-content/themes/your-theme/custom-brand-assets.css`
 
 #### `brand_assets_pattern_file_path`
 
@@ -217,14 +240,16 @@ Filter the path to the brand page pattern file used for block pattern registrati
 **Parameters:**
 - `string $pattern_file_path` - The path to the pattern file
 
-**Default:** `BRAND_ASSETS_PLUGIN_DIR . 'includes/brand-page-pattern.inc'`
+**Default:** `BRAND_ASSETS_PLUGIN_DIR . 'includes/brand-page-pattern.php'`
 
 **Example:**
 ```php
 add_filter( 'brand_assets_pattern_file_path', function( $path ) {
-    return get_template_directory() . '/custom-brand-pattern.inc';
+    return get_template_directory() . '/custom-brand-pattern.php';
 });
 ```
+
+**Note:** The pattern file should return a string containing valid WordPress block markup.
 
 ## Architecture
 
