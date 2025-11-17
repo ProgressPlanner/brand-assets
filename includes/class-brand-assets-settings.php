@@ -81,7 +81,7 @@ final class Brand_Assets_Settings {
 							<select name="<?php echo esc_attr( Brand_Assets_Options::OPTIONS_NAME ); ?>[brand_page_id]" id="brand_page_id">
 								<option value="0"><?php esc_html_e( 'Select a page...', 'brand-assets' ); ?></option>
 								<?php foreach ( $pages as $page ) { ?>
-									<option value="<?php echo esc_attr( (string)$page->ID ); ?>" <?php selected( $options['brand_page_id'], $page->ID ); ?>>
+									<option value="<?php echo esc_attr( (string) $page->ID ); ?>" <?php selected( $options['brand_page_id'], $page->ID ); ?>>
 										<?php echo esc_html( $page->post_title ); ?>
 									</option>
 								<?php } ?>
