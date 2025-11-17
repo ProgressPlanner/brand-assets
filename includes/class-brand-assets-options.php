@@ -65,7 +65,7 @@ final class Brand_Assets_Options {
 	 * Get default options.
 	 *
 	 * @since 0.1.0
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function get_defaults() {
 		return array(
@@ -85,8 +85,8 @@ final class Brand_Assets_Options {
 	 * Ensures empty strings fall back to defaults so frontend does not need inline fallbacks.
 	 *
 	 * @since 0.1.0
-	 * @param array $input Raw input values.
-	 * @return array Sanitized values.
+	 * @param array<string, mixed> $input Raw input values.
+	 * @return array<string, mixed> Sanitized values.
 	 */
 	public function sanitize( $input ) { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.inputFound
 		$defaults = $this->get_defaults();
@@ -104,7 +104,7 @@ final class Brand_Assets_Options {
 		}
 
 		$sanitized = array();
-		$input     = is_array( $input ) ? $input : array();
+		$input     = is_array( $input ) ? $input : array(); // @phpstan-ignore-line -- Input is currently array, but keeping the check to be safe.
 
 		$sanitized['brand_page_id'] = absint( $input['brand_page_id'] ?? $defaults['brand_page_id'] );
 
@@ -135,7 +135,7 @@ final class Brand_Assets_Options {
 	 * Get all options merged with defaults. Stored values take precedence.
 	 *
 	 * @since 0.1.0
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function get_all() {
 		$stored = get_option( self::OPTIONS_NAME, array() );
@@ -161,7 +161,7 @@ final class Brand_Assets_Options {
 	 * Update multiple options at once.
 	 *
 	 * @since 0.1.0
-	 * @param array $values Values to update.
+	 * @param array<string, mixed> $values Values to update.
 	 * @return void
 	 */
 	public function update( array $values ) {
