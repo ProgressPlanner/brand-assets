@@ -174,8 +174,8 @@ final class Brand_Assets {
 	 * Add settings link to plugins page.
 	 *
 	 * @since 0.1.0
-	 * @param array $links Existing plugin action links.
-	 * @return array Modified plugin action links.
+	 * @param array<string> $links Existing plugin action links.
+	 * @return array<string> Modified plugin action links.
 	 */
 	public function add_settings_link( array $links ) {
 		$settings_link = sprintf(

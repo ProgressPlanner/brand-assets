@@ -19,14 +19,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class Brand_Assets_Frontend {
 
 	/**
-	 * Popover options
-	 *
-	 * @since 0.1.0
-	 * @var array
-	 */
-	private $popover_options = array();
-
-	/**
 	 * Flag to check if the copy script has been enqueued.
 	 *
 	 * @since 0.1.0
@@ -133,8 +125,8 @@ final class Brand_Assets_Frontend {
 	 * Print inline script to copy color values to clipboard.
 	 *
 	 * @since 0.1.0
-	 * @param string $block_content The block content.
-	 * @param array  $block The block.
+	 * @param string               $block_content The block content.
+	 * @param array<string, mixed> $block The block.
 	 * @return string The block content.
 	 */
 	public function enqueue_copy_color_script( $block_content, $block ) {
@@ -231,7 +223,7 @@ final class Brand_Assets_Frontend {
 			esc_html( $options['heading'] ),
 			esc_html( $options['text_line1'] ),
 			esc_html( $options['text_line2'] ),
-			esc_url( get_permalink( $options['brand_page_id'] ) ),
+			esc_url( (string) get_permalink( $options['brand_page_id'] ) ),
 			esc_html( $options['link_text'] )
 		);
 	}
