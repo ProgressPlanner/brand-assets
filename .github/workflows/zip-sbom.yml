@@ -59,7 +59,7 @@ jobs:
       if: steps.npm-check.outputs.exists == 'true'
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '22'
         cache: 'npm'
 
     - name: Install Node.js dependencies
@@ -113,16 +113,16 @@ jobs:
           -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
           "https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ github.event.release.tag_name }}" \
           | jq -r '.body // ""')
-        
+
         # Append SBOM information to existing body
         SBOM_INFO=$'SBOM Format: CycloneDX JSON\nGenerated with: Syft'
-        
+
         if [ -z "$EXISTING_BODY" ]; then
           COMBINED_BODY="$SBOM_INFO"
         else
           COMBINED_BODY="$EXISTING_BODY"$'\n\n'"$SBOM_INFO"
         fi
-        
+
         # Write to file for body_path
         echo "$COMBINED_BODY" > release-body.txt
         echo "body_path=release-body.txt" >> $GITHUB_OUTPUT
