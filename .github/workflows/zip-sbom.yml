@@ -45,41 +45,6 @@ jobs:
       if: steps.composer-check.outputs.exists == 'true'
       run: composer install --no-dev --optimize-autoloader --no-interaction
 
-    # Check for npm
-    - name: Check for package.json
-      id: npm-check
-      run: |
-        if [ -f "package.json" ]; then
-          echo "exists=true" >> $GITHUB_OUTPUT
-        else
-          echo "exists=false" >> $GITHUB_OUTPUT
-        fi
-
-    - name: Setup Node.js
-      if: steps.npm-check.outputs.exists == 'true'
-      uses: actions/setup-node@v4
-      with:
-        node-version: '22'
-        cache: 'npm'
-
-    - name: Install Node.js dependencies
-      if: steps.npm-check.outputs.exists == 'true'
-      run: npm ci
-
-    - name: Check for build script
-      if: steps.npm-check.outputs.exists == 'true'
-      id: build-check
-      run: |
-        if node -e "const pkg = require('./package.json'); process.exit(pkg.scripts && pkg.scripts.build ? 0 : 1);" 2>/dev/null; then
-          echo "exists=true" >> $GITHUB_OUTPUT
-        else
-          echo "exists=false" >> $GITHUB_OUTPUT
-        fi
-
-    - name: Build production assets
-      if: steps.npm-check.outputs.exists == 'true' && steps.build-check.outputs.exists == 'true'
-      run: npm run build
-
     # === Generate SBOM before creating the build ===
     - name: Install Syft
       run: |
