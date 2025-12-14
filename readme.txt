@@ -170,11 +170,10 @@ The plugin includes a pre-built block pattern that provides a complete template 
 
 == Changelog ==
 
+= 1.0.0 =
+
+* First stable release on FAIR.
+
 = 0.1.0 =
+
 * Initial release.
-
-== Arbitrary section ==
-
-You may provide arbitrary sections, in the same format as the ones above. This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation." Arbitrary sections will be shown below the built-in sections outlined above.
