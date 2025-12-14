@@ -333,7 +333,12 @@ npm run lint:php:compatibility
 
 ## Changelog
 
+### 1.0.0
+
+- First stable release on FAIR.
+
 ### 0.1.0
+
 - Initial release
 - Brand Assets block with color scheme display
 - Customizable swatch appearance
