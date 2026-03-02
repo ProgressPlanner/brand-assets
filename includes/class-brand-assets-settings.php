@@ -489,7 +489,7 @@ final class Brand_Assets_Settings {
 	/**
 	 * Render an input field.
 	 *
-	 * @param array $attrs The attributes for the input field.
+	 * @param array<string, string> $attrs The attributes for the input field.
 	 * @return void
 	 */
 	protected function render_input_field( $attrs ) {
@@ -503,9 +503,9 @@ final class Brand_Assets_Settings {
 	/**
 	 * Render a select field.
 	 *
-	 * @param array $attrs The attributes for the select field.
-	 * @param array $options The options for the select field.
-	 * @param mixed $selected The selected value.
+	 * @param array<string, string>                               $attrs The attributes for the select field.
+	 * @param array<int, array{value: string|int, label: string}> $options The options for the select field.
+	 * @param mixed                                               $selected The selected value.
 	 * @return void
 	 */
 	protected function render_select_field( $attrs, $options, $selected = null ) {
@@ -515,7 +515,7 @@ final class Brand_Assets_Settings {
 		}
 		echo '>';
 		foreach ( $options as $option ) {
-			echo '<option value="' . esc_attr( $option['value'] ) . '"';
+			echo '<option value="' . esc_attr( (string) $option['value'] ) . '"';
 			if ( null !== $selected && (string) $option['value'] === (string) $selected ) {
 				echo ' selected="selected"';
 			}
@@ -527,7 +527,7 @@ final class Brand_Assets_Settings {
 	/**
 	 * Render a table row with label, field, and description.
 	 *
-	 * @param array $args {
+	 * @param array<string, mixed> $args {
 	 *     Arguments for rendering the table row.
 	 *
 	 *     @type string   $label       The label text for the field.

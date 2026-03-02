@@ -120,7 +120,7 @@ final class Brand_Assets_Frontend {
 	 * Generate CSS custom properties from user options.
 	 *
 	 * @since 0.1.0
-	 * @param array $options Plugin options.
+	 * @param array<string, mixed> $options Plugin options.
 	 * @return string CSS custom properties.
 	 */
 	private function generate_css_variables( $options ) {

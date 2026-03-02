@@ -11,7 +11,7 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       brand-assets
  * Plugin ID:         did:plc:jgkahf6mwbkzw4k2cqity72y
- * Security: 		  security@progressplanner.com
+ * Security:          security@progressplanner.com
  * GitHub Plugin URI: https://github.com/progressplanner/brand-assets
  *
  * @package BrandAssets
