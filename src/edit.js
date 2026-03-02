@@ -101,6 +101,29 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 		}
 	}, [ swatches.length, setAttributes, themeColors ] );
 
+	// Ensure all swatches have CMYK values (one-time migration)
+	useEffect( () => {
+		if ( swatches.length === 0 ) {
+			return;
+		}
+		const needsUpdate = swatches.some(
+			( swatch ) => ! swatch.cmyk && swatch.color
+		);
+		if ( needsUpdate ) {
+			const updatedSwatches = swatches.map( ( swatch ) => {
+				if ( ! swatch.cmyk && swatch.color ) {
+					return {
+						...swatch,
+						cmyk: hexToCmyk( swatch.color ),
+					};
+				}
+				return swatch;
+			} );
+			setAttributes( { swatches: updatedSwatches } );
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [] ); // Run once on mount to migrate existing blocks
+
 	const updateSwatch = ( index, newSwatch ) => {
 		const updatedSwatches = [ ...swatches ];
 		updatedSwatches[ index ] = newSwatch;
@@ -108,10 +131,14 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 	};
 
 	const addSwatch = () => {
-		const newSwatch = { name: 'New Color', color: '#000000' };
-		const updatedSwatches = [ ...swatches, newSwatch ];
-		setAttributes( { swatches: updatedSwatches } );
-		setSelectedSwatchIndex( updatedSwatches.length - 1 );
+		const newSwatch = {
+			name: "New Color",
+			color: "#000000",
+			cmyk: hexToCmyk("#000000"),
+		};
+		const updatedSwatches = [...swatches, newSwatch];
+		setAttributes({ swatches: updatedSwatches });
+		setSelectedSwatchIndex(updatedSwatches.length - 1);
 	};
 
 	const deleteSwatch = ( index ) => {
@@ -257,12 +284,14 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 							/>
 							<ColorPalette
 								value={ swatches[ selectedSwatchIndex ].color }
-								onChange={ ( color ) =>
+								onChange={ ( color ) => {
+									const cmyk = hexToCmyk( color );
 									updateSwatch( selectedSwatchIndex, {
 										...swatches[ selectedSwatchIndex ],
 										color,
-									} )
-								}
+										cmyk,
+									} );
+								} }
 							/>
 							{ showCMYK && (
 								<div style={ { marginBottom: '8px' } }>
@@ -378,7 +407,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 									{ swatch.name }
 								</span>
 								<code>{ swatch.color.toUpperCase() }</code>
-								{ showCMYK && (
+								{ showCMYK && swatch.cmyk && (
 									<code className={ 'small' }>
 										{ 'CMYK: ' + swatch.cmyk }
 									</code>

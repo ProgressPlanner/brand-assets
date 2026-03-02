@@ -1,0 +1,10 @@
+parameters:
+  level: 7
+  paths:
+    - brand-assets.php
+    - includes
+  scanDirectories:
+    - .
+  ignoreErrors:
+    # Constants are defined in main plugin file which is scanned
+    - '#Constant BRAND_ASSETS_(VERSION|PLUGIN_FILE|PLUGIN_DIR|PLUGIN_URL) not found#'

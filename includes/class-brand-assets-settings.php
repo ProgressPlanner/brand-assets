@@ -86,6 +86,10 @@ final class Brand_Assets_Settings {
 
 		$options = Brand_Assets::get_instance()->options->get_all();
 		$pages   = get_pages( array( 'post_status' => 'publish' ) );
+
+		if ( ! $pages ) {
+			$pages = array();
+		}
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
