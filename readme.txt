@@ -1,5 +1,5 @@
 === Brand Assets ===
-Contributors:      Team Progress Planner
+Contributors:      progressplanner
 Tags:              block, brand, colors, design, assets
 Tested up to:      6.9
 Stable tag:        1.0.0
