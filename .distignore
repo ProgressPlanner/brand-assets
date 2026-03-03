@@ -1,0 +1,18 @@
+# Directories
+.github
+.wordpress-org
+node_modules
+src
+vendor
+
+# Files
+.distignore
+.editorconfig
+.gitignore
+.php-cs-fixer.cache
+composer.json
+composer.lock
+package.json
+package-lock.json
+phpcs.xml
+phpstan.neon.dist
