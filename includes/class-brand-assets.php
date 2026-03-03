@@ -129,21 +129,22 @@ final class Brand_Assets {
 		 * Filter the path to the brand page pattern file.
 		 *
 		 * Allows developers to customize the location of the brand page pattern file
-		 * used for the block pattern registration. The pattern file should contain
+		 * used for the block pattern registration. The pattern file should return
 		 * valid block markup for a complete brand page layout.
 		 *
 		 * @since 0.1.0
-		 * @param string $pattern_file_path The path to the pattern file. Default: BRAND_ASSETS_PLUGIN_DIR . 'includes/brand-page-pattern.inc'
+		 * @param string $pattern_file_path The path to the pattern file. Default: BRAND_ASSETS_PLUGIN_DIR . 'includes/brand-page-pattern.php'
 		 */
-		$brand_page_pattern_file = apply_filters( 'brand_assets_pattern_file_path', BRAND_ASSETS_PLUGIN_DIR . 'includes/brand-page-pattern.inc' );
+		$brand_page_pattern_file = apply_filters( 'brand_assets_pattern_file_path', BRAND_ASSETS_PLUGIN_DIR . 'includes/brand-page-pattern.php' );
 
 		if ( ! file_exists( $brand_page_pattern_file ) ) {
 			return;
 		}
 
 		// Load the brand page pattern.
-		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- This is a valid use of file_get_contents.
-		$pattern_content = file_get_contents( $brand_page_pattern_file );
+		ob_start();
+		require $brand_page_pattern_file;
+		$pattern_content = ob_get_clean();
 		if ( ! $pattern_content ) {
 			return;
 		}
