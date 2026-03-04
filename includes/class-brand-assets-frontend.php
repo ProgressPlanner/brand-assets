@@ -190,7 +190,7 @@ final class Brand_Assets_Frontend {
 			return;
 		}
 
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in the printf.
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in the printf.
 		printf(
 			'<dialog popover="manual" id="brand_assets_logo_popover">
 	<h1>%s</h1>
@@ -226,7 +226,7 @@ final class Brand_Assets_Frontend {
 		$css_file = apply_filters( 'brand_assets_frontend_css_path', BRAND_ASSETS_PLUGIN_DIR . 'assets/frontend.css' );
 
 		if ( file_exists( $css_file ) ) {
-			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- This is a valid use of file_get_contents.
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- This is a valid use of file_get_contents.
 			$css_content = file_get_contents( $css_file );
 			return $css_content ? $css_content : '';
 		}

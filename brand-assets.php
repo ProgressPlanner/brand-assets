@@ -36,16 +36,16 @@ define( 'BRAND_ASSETS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
  * @return void
  */
 function brand_assets_autoloader( $class_name ) {
-		// Only handle Brand_Assets classes.
+	// Only handle Brand_Assets classes.
 	if ( strpos( $class_name, 'Brand_Assets' ) !== 0 ) {
 		return;
 	}
 
-		// Convert class name to file name.
-		$file_name = 'class-' . strtolower( str_replace( '_', '-', $class_name ) ) . '.php';
-		$file_path = BRAND_ASSETS_PLUGIN_DIR . 'includes/' . $file_name;
+	// Convert class name to file name.
+	$file_name = 'class-' . strtolower( str_replace( '_', '-', $class_name ) ) . '.php';
+	$file_path = BRAND_ASSETS_PLUGIN_DIR . 'includes/' . $file_name;
 
-		// Load the file if it exists.
+	// Load the file if it exists.
 	if ( file_exists( $file_path ) ) {
 		require_once $file_path;
 	}
