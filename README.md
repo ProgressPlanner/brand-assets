@@ -1,4 +1,6 @@
 [![CS](https://github.com/ProgressPlanner/brand-assets/actions/workflows/cs.yml/badge.svg)](https://github.com/ProgressPlanner/brand-assets/actions/workflows/cs.yml)
+[![PHPStan](https://github.com/ProgressPlanner/brand-assets/actions/workflows/phpstan.yml/badge.svg)](https://github.com/ProgressPlanner/brand-assets/actions/workflows/phpstan.yml)
+[![Security](https://github.com/ProgressPlanner/brand-assets/actions/workflows/security.yml/badge.svg)](https://github.com/ProgressPlanner/brand-assets/actions/workflows/security.yml)
 
 [![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/brand-assets.svg)](https://wordpress.org/plugins/brand-assets/)
 ![WordPress Plugin: Tested WP Version](https://img.shields.io/wordpress/plugin/tested/brand-assets.svg)
@@ -13,84 +15,105 @@
 
 # Brand Assets
 
-A WordPress block plugin that allows you to easily display your company's brand assets on your website. Perfect for showcasing your brand identity, color schemes, and design guidelines.
+Create a polished brand assets page in WordPress with reusable color palettes, downloadable files, and a logo popover that helps visitors find the right brand resources fast.
 
-## Features
+Brand Assets is a block-based WordPress plugin for teams that need a simple way to publish logos, colors, typography guidance, and downloadable brand files on their own site.
 
-- **Color Scheme Display**: Create beautiful color palette displays with customizable swatches
-- **Flexible Layout**: Adjust swatch sizes, gaps, borders, and styling to match your brand
-- **CMYK Support**: Optional CMYK color values for print-ready color information
-- **Responsive Design**: Color schemes look great on all devices
-- **Easy to Use**: Simple block editor interface with intuitive controls
-- **Logo Popover**: Right-click on your site logo to show a customizable popover linking to your brand assets page
-- **Settings Page**: Configure popover text, target page, and logo selector through WordPress admin
-- **Plugin Settings Link**: Quick access to settings directly from the WordPress plugins page
-- **Modern Architecture**: Built with object-oriented PHP 7.4+ and follows WordPress coding standards
+## Why Brand Assets?
 
-## Perfect For
+Most teams keep brand files scattered across PDFs, cloud folders, and outdated guideline pages. Brand Assets helps you turn that mess into a clear, on-site brand hub your team, clients, partners, and press contacts can actually use.
 
-- Brand guidelines pages
-- Design system documentation
-- Marketing materials
-- Portfolio websites
-- Agency websites
-- Corporate websites
+Use it to:
+
+- publish a public or internal brand guidelines page
+- show approved brand colors with optional CMYK values
+- add downloadable logo and asset links directly inside content
+- guide visitors from your site logo to the correct brand assets page
+- launch faster with a ready-made block pattern
+
+## Core features
+
+### Brand color palette block
+
+Show brand colors in clean swatches with controls for:
+
+- swatch width and height
+- gaps between colors
+- border width, radius, and color
+- optional CMYK values for print workflows
+
+### Logo popover
+
+Add a contextual popover to your site logo so visitors can quickly jump to your brand assets page.
+
+You can configure:
+
+- target page
+- heading and supporting text
+- link text
+- CSS selector for the logo element
+- CSS loading mode for styling control
+
+### Download-friendly brand pages
+
+Add the `ba-download` class to a list item and Brand Assets automatically adds the `download` attribute to links inside that item. This is useful for logo packs, PDFs, icon files, and brand guideline downloads.
+
+### Ready-made brand page pattern
+
+Start with a prebuilt pattern that includes:
+
+- logo and icon sections
+- downloadable asset links
+- a sample brand color section
+- typography examples
+
+## Good fit for
+
+- product teams publishing brand kits
+- agencies handing off brand files to clients
+- companies that want a public media kit page
+- websites that need a simple brand guidelines page in Gutenberg
+
+## Quick start
+
+1. Install and activate **Brand Assets**.
+2. Create or open the page that will hold your brand guidelines.
+3. Insert the **Brand Assets** pattern or add the **Color Palette - Brand Assets** block.
+4. Add your colors, logo downloads, and typography guidance.
+5. In **Settings → Brand Assets**, connect your site logo to the page with the popover settings.
 
 ## Installation
 
-### From WordPress Admin
+### From the WordPress admin
 
-1. Go to **Plugins** → **Add New**
-2. Search for "Brand Assets"
-3. Click **Install Now** and then **Activate**
+1. Go to **Plugins → Add New**.
+2. Search for **Brand Assets**.
+3. Click **Install Now** and then **Activate**.
 
-### Manual Installation
+### Manual installation
 
-1. Download the plugin files
-2. Upload them to `/wp-content/plugins/brand-assets/`
-3. Activate the plugin through the **Plugins** screen in WordPress
+1. Download the plugin files.
+2. Upload them to `/wp-content/plugins/brand-assets/`.
+3. Activate the plugin through the **Plugins** screen in WordPress.
 
 ## Usage
 
-### Adding the Color Palette Block
+### Add the color palette block
 
-1. In the WordPress editor, click the **"+"** button to add a new block
-2. Search for **"Color Palette - Brand Assets"** or find it in the **Design** category
-3. Click to add the block to your page or post
+1. Open the block editor.
+2. Search for **Color Palette - Brand Assets**.
+3. Add your hex color values.
+4. Adjust spacing, sizing, borders, and optional CMYK output in the block sidebar.
 
-### Configuring Your Color Palette
+### Configure the logo popover
 
-1. **Add Colors**: Enter hex color codes (e.g., `#FF5733`) in the block settings
-2. **Customize Appearance**: Use the block settings panel to adjust:
-   - Swatch width and height
-   - Gap between swatches
-   - Border width, radius, and color
-   - Enable/disable CMYK values
+1. Go to **Settings → Brand Assets**.
+2. Select the page that should receive logo-click visitors.
+3. Customize the heading, supporting text, and link label.
+4. Set the logo CSS selector if you are not using the default site logo block.
+5. Save your changes.
 
-### Configuring the Logo Popover
-
-The Brand Assets plugin includes a logo popover feature that appears when users right-click on your site logo. To configure this feature:
-
-1. Go to **Settings** → **Brand Assets** in your WordPress admin (or click the "Settings" link on the plugins page)
-2. **Select Brand Assets Page**: Choose the page where users will be taken when they click the popover link
-3. **Customize Text**: Set the popover heading, subheading, and link text
-4. **Logo Selector**: Specify the CSS selector for your logo element (default: `.wp-block-site-logo`)
-5. Click **Save Changes**
-
-The popover will only appear if you have selected a brand assets page in the settings.
-
-### Download Links Feature
-
-The Brand Assets plugin includes a convenient feature for creating download links. When you add the `ba-download` class to a list item in Gutenberg, all links within that list item will automatically get the `download` attribute added to them.
-
-#### How to Use Download Links
-
-1. **Create a List**: In the WordPress editor, create a list (ordered or unordered)
-2. **Add the Class**: Select a list item and add the CSS class `ba-download` in the Advanced settings
-3. **Add Links**: Add your download links within that list item
-4. **Automatic Processing**: The plugin will automatically add the `download` attribute to all links in that list item
-
-#### Example
+### Create download links
 
 ```html
 <ul>
@@ -103,281 +126,94 @@ The Brand Assets plugin includes a convenient feature for creating download link
 </ul>
 ```
 
-The plugin will automatically transform these links to include the `download` attribute:
+Links inside list items with the `ba-download` class will automatically receive the `download` attribute.
 
-```html
-<ul>
-  <li class="ba-download">
-    <a href="https://example.com/files/brand-guidelines.pdf" download>Brand Guidelines (PDF)</a>
-  </li>
-  <li class="ba-download">
-    <a href="https://example.com/files/logo-pack.zip" download>Logo Pack (ZIP)</a>
-  </li>
-</ul>
-```
+## Settings overview
 
-This feature is particularly useful for brand asset pages where you want to provide downloadable files like logos, brand guidelines, or other resources.
+| Setting | What it does | Default |
+| --- | --- | --- |
+| Brand Assets Page | Selects the page the popover should link to | None |
+| Popover Heading | Main popover heading | Looking for our logo? |
+| Popover Text Line 1 | First supporting line | You're in the right spot! |
+| Popover Text Line 2 | Text before the link | Check out our |
+| Link Text | Link label shown inside the popover | brand assets |
+| Logo Selector | CSS selector used to attach the popover | `.wp-block-site-logo` |
+| CSS Loading Mode | Controls how popover CSS is loaded | Load the default CSS |
 
-## Brand Page Pattern
+### Popover styling options
 
-The Brand Assets plugin comes with a pre-built block pattern that provides a complete template for creating brand asset pages. This pattern includes:
+The settings page also lets you adjust:
 
-### Pattern Sections
+- background, text, link, border, and close button colors
+- border width and radius
+- padding and max width
+- font size
 
-1. **Logo Section**:
-   - Two-column layout for logo and icon display
-   - Download links for SVG, EPS, and PNG formats
-   - Uses the `ba-download` class for automatic download attributes
+These are implemented with CSS custom properties, keeping customization flexible while staying WordPress.org-friendly.
 
-2. **Brand Colors Section**:
-   - Pre-configured Brand Assets block with sample colors
-   - Includes CMYK values for print-ready color information
-   - Responsive color swatches with customizable styling
+## Developer hooks
 
-3. **Typography Section**:
-   - Complete heading hierarchy (H1-H6)
-   - Text formatting examples (normal, bold, italic)
-   - Table example for comprehensive typography showcase
+### `brand_assets_frontend_css_path`
 
-### How to Use the Pattern
+Filter the path to the frontend CSS file used for the logo popover.
 
-1. **Create a New Page**: In WordPress admin, create a new page for your brand assets
-2. **Add the Pattern**: In the block editor, click the "+" button and go to the **Patterns** tab
-3. **Find the Pattern**: Look for "Brand Assets" in the available patterns
-4. **Insert and Customize**: Click to insert the pattern, then customize it with your actual:
-   - Logo and icon images
-   - Brand colors (replace the sample colors in the Brand Assets block)
-   - Download links for your actual files
-   - Typography information
-
-### Pattern Benefits
-
-- **Quick Setup**: Get a professional brand assets page in minutes
-- **Best Practices**: Follows design patterns proven to work well for brand guidelines
-- **Download Integration**: Automatically includes the download links feature
-- **Responsive Design**: Works perfectly on all devices
-- **Customizable**: Easy to modify and adapt to your specific brand needs
-
-## Block Settings
-
-| Setting | Description | Default |
-|---------|-------------|---------|
-| Swatch Width | Width of each color swatch in pixels | 150px |
-| Swatch Height | Height of each color swatch in pixels | 150px |
-| Swatch Gap | Space between swatches in pixels | 20px |
-| Border Width | Thickness of swatch borders in pixels | 1px |
-| Border Radius | Roundness of swatch corners in pixels | 0px |
-| Border Color | Color of swatch borders | #888888 |
-| Show CMYK | Display CMYK values alongside hex codes | Disabled |
-
-## Settings Page
-
-The Brand Assets plugin includes a comprehensive settings page accessible via:
-
-- **WordPress Admin**: Settings → Brand Assets
-- **Plugins Page**: Click the "Settings" link next to the Brand Assets plugin
-
-### Settings Options
-
-| Setting | Description | Default |
-|---------|-------------|---------|
-| Brand Assets Page | Page where users are taken when clicking the popover link | None (disabled) |
-| Popover Heading | Main heading text in the popover | "Looking for our logo?" |
-| Popover Text Line 1 | First line of text that appears below the heading | "You're in the right spot!" |
-| Popover Text Line 2 | Second line of text that appears before the link | "Check out our" |
-| Link Text | Text for the link to your brand assets page | "brand assets" |
-| Logo Selector | CSS selector for the logo element | ".wp-block-site-logo" |
-| CSS Loading Mode | Choose how CSS should be loaded for the popover | "Load the default CSS" |
-
-### Popover Styling Options
-
-Customize the visual appearance of the logo popover with these settings:
-
-| Setting | Description | Default |
-|---------|-------------|---------|
-| Background Color | Background color of the popover | #ffffff (white) |
-| Text Color | Text color in the popover | #000000 (black) |
-| Link Color | Color of links in the popover | #0073aa (blue) |
-| Border Color | Border color of the popover | #cccccc (light gray) |
-| Close Button Color | Color of the close button | #666666 (gray) |
-| Border Width | Border width in pixels | 1px |
-| Border Radius | Border radius in pixels for rounded corners | 8px |
-| Padding | Internal padding in pixels | 20px |
-| Max Width | Maximum width of the popover in pixels | 400px |
-| Font Size | Font size in pixels | 16px |
-
-**Note:** These styling options use CSS custom properties (CSS variables) under the hood, providing a safe and WordPress.org-compliant way to customize the popover appearance without allowing arbitrary CSS input.
-
-## Developer Hooks
-
-The Brand Assets plugin provides several filters for developers to customize functionality:
-
-### Filters
-
-#### `brand_assets_frontend_css_path`
-
-Filter the path to the frontend CSS file used for styling the logo popover.
-
-**Parameters:**
-- `string $css_file_path` - The path to the CSS file
-
-**Default:** `BRAND_ASSETS_PLUGIN_DIR . 'assets/frontend.css'`
-
-**Example:**
 ```php
 add_filter( 'brand_assets_frontend_css_path', function( $path ) {
     return get_stylesheet_directory() . '/custom-brand-assets.css';
-});
+} );
 ```
 
-**Custom CSS for Popover:**
-If you need to customize the popover styling, create a custom CSS file in your theme and use the filter above to point to it. Then set the CSS Loading Mode to "Load no CSS" in the plugin settings if you want to completely replace the default styles, or leave it as "Load the default CSS" to extend the default styles.
+### `brand_assets_pattern_file_path`
 
-Example custom CSS file location: `wp-content/themes/your-theme/custom-brand-assets.css`
+Filter the path to the block pattern file used for the brand page template.
 
-#### `brand_assets_pattern_file_path`
-
-Filter the path to the brand page pattern file used for block pattern registration.
-
-**Parameters:**
-- `string $pattern_file_path` - The path to the pattern file
-
-**Default:** `BRAND_ASSETS_PLUGIN_DIR . 'includes/brand-page-pattern.php'`
-
-**Example:**
 ```php
 add_filter( 'brand_assets_pattern_file_path', function( $path ) {
     return get_template_directory() . '/custom-brand-pattern.php';
-});
+} );
 ```
-
-**Note:** The pattern file should return a string containing valid WordPress block markup.
-
-## Architecture
-
-The Brand Assets plugin is built using modern object-oriented PHP with the following structure:
-
-### Main Classes
-
-- **`Brand_Assets`**: Main plugin class implementing singleton pattern
-- **`Brand_Assets_Settings`**: Handles admin settings and configuration
-- **`Brand_Assets_Options`**: Manages plugin options and default values
-- **`Brand_Assets_Frontend`**: Manages frontend functionality and popover display
-
-### Key Features
-
-- **Singleton Pattern**: Ensures only one instance of the main plugin class
-- **Separation of Concerns**: Clear separation between admin, frontend, and core functionality
-- **Modern PHP**: Uses PHP 7.4+ features with object-oriented design patterns
-- **WordPress Standards**: Follows WordPress coding standards and best practices
-- **Internationalization**: Full support for translations with proper text domain usage
 
 ## Development
 
 ### Prerequisites
 
-- PHP 7.4 or higher
-- Node.js (version 14 or higher)
-- npm or yarn
-- WordPress development environment
+- PHP 7.4+
+- Node.js 14+
+- npm
+- a local WordPress development environment
 
 ### Setup
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/brand-assets.git
-   cd brand-assets
-   ```
+```bash
+git clone https://github.com/ProgressPlanner/brand-assets.git
+cd brand-assets
+npm install
+```
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Start development:
-   ```bash
-   npm start
-   ```
-
-4. Build for production:
-   ```bash
-   npm run build
-   ```
-
-### Available Scripts
-
-- `npm start` - Start the development server with hot reloading
-- `npm run build` - Build the plugin for production
-- `npm run lint:js` - Lint JavaScript files
-- `npm run lint:css` - Lint CSS files
-- `npm run lint:php` - Lint PHP files using WordPress Coding Standards
-- `npm run lint:php:fix` - Auto-fix PHP coding standards issues
-- `npm run lint:php:compatibility` - Check PHP compatibility
-- `npm run format` - Format code using WordPress standards
-
-## Contributing
-
-We welcome contributions! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
-
-### Development Guidelines
-
-- Follow WordPress coding standards (WPCS)
-- Test your changes thoroughly
-- Update documentation as needed
-- Ensure compatibility with WordPress 6.6+ and PHP 7.4+
-
-### Code Quality
-
-This plugin follows WordPress Coding Standards (WPCS). To check and fix code quality:
+### Common commands
 
 ```bash
-# Install dependencies
-composer install
-
-# Check PHP coding standards
-npm run lint:php
-
-# Auto-fix PHP coding standards issues
-npm run lint:php:fix
-
-# Check PHP compatibility
-npm run lint:php:compatibility
+npm start                 # Start development build
+npm run build             # Build for production
+npm run lint:js           # Lint JavaScript
+npm run lint:css          # Lint CSS
+npm run lint:php          # Run PHP_CodeSniffer
+npm run lint:php:fix      # Auto-fix PHP coding standards issues
+npm run lint:php:compatibility # Check PHP compatibility
+composer phpstan          # Run PHPStan
 ```
 
 ## Support
 
-- **Documentation**: [Plugin Documentation](https://progressplanner.com/plugins/brand-assets/)
-- **Issues**: [GitHub Issues](https://github.com/progressplanner/brand-assets/issues)
-- **Contact**: [Team Progress Planner](https://progressplanner.com/)
+- Plugin page: https://wordpress.org/plugins/brand-assets/
+- Documentation: https://progressplanner.com/plugins/brand-assets/
+- Issues: https://github.com/ProgressPlanner/brand-assets/issues
+- Team Progress Planner: https://progressplanner.com/
 
-## Changelog
+## Contributing
 
-### 1.0.0
-
-- First stable release on FAIR.
-
-### 0.1.0
-
-- Initial release
-- Brand Assets block with color scheme display
-- Customizable swatch appearance
-- CMYK color support
-- Responsive design
+Contributions are welcome. Please open an issue or pull request if you want to improve the plugin, documentation, or developer experience.
 
 ## License
 
-This plugin is licensed under the GPL-2.0-or-later License. See the [LICENSE](LICENSE) file for details.
-
-## Credits
-
-Created by [Team Progress Planner](https://progressplanner.com) - WordPress development team.
-
----
-
-**Brand Assets** - Making brand consistency easy in WordPress.
+GPL-2.0-or-later. See [LICENSE](LICENSE) for details.
