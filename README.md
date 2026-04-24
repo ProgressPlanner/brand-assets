@@ -206,6 +206,7 @@ composer phpstan          # Run PHPStan
 ## Support
 
 - Plugin page: https://wordpress.org/plugins/brand-assets/
+- Source code: https://github.com/ProgressPlanner/brand-assets
 - Documentation: https://progressplanner.com/plugins/brand-assets/
 - Issues: https://github.com/ProgressPlanner/brand-assets/issues
 - Team Progress Planner: https://progressplanner.com/

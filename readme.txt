@@ -88,6 +88,12 @@ Yes. The settings screen includes controls for colors, spacing, borders, max wid
 
 Yes. Brand Assets includes a pre-built block pattern with logo sections, downloadable asset links, a brand color palette area, and typography examples so you can start faster.
 
+== Support ==
+
+- Source code: https://github.com/ProgressPlanner/brand-assets
+- Documentation: https://progressplanner.com/plugins/brand-assets/
+- Issues: https://github.com/ProgressPlanner/brand-assets/issues
+
 == Screenshots ==
 
 1. Brand Assets settings screen for choosing the brand assets page, logo selector, and popover text.
