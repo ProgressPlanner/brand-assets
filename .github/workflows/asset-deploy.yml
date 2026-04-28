@@ -3,6 +3,7 @@ on:
   push:
     branches:
     - main
+  workflow_dispatch:
 jobs:
   asset_deploy:
     name: Push to main

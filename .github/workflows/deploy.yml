@@ -3,6 +3,7 @@ name: Deploy to WordPress.org repository
 on:
   release:
     types: [released]
+  workflow_dispatch:
 
 jobs:
   deploy_to_wordpress_org:
@@ -34,6 +35,7 @@ jobs:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
 
       - name: Upload release asset
+        if: github.event_name == 'release'
         uses: Shopify/upload-to-release@master
         with:
           name: ${{ github.event.repository.name }}.zip
