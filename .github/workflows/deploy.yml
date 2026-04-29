@@ -1,0 +1,44 @@
+name: Deploy to WordPress.org repository
+
+on:
+  release:
+    types: [released]
+  workflow_dispatch:
+
+jobs:
+  deploy_to_wordpress_org:
+    name: Deploy release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Build assets
+        run: npm run build
+
+      - name: WordPress plugin deploy
+        id: deploy
+        uses: 10up/action-wordpress-plugin-deploy@develop
+        with:
+          generate-zip: true
+        env:
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+
+      - name: Upload release asset
+        if: github.event_name == 'release'
+        uses: Shopify/upload-to-release@master
+        with:
+          name: ${{ github.event.repository.name }}.zip
+          path: ${{ steps.deploy.outputs.zip-path }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          content-type: application/zip
