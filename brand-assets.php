@@ -36,8 +36,8 @@ define( 'BRAND_ASSETS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
  * @return void
  */
 function brand_assets_autoloader( $class_name ) {
-	// Only handle Brand_Assets classes.
-	if ( strpos( $class_name, 'Brand_Assets' ) !== 0 ) {
+	// Only handle the four classes owned by this plugin.
+	if ( ! in_array( $class_name, array( 'Brand_Assets', 'Brand_Assets_Frontend', 'Brand_Assets_Options', 'Brand_Assets_Settings' ), true ) ) {
 		return;
 	}
 

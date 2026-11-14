@@ -3,6 +3,9 @@ name: Playground Comment
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   playground:
     runs-on: ubuntu-latest
@@ -12,7 +15,7 @@ jobs:
       actions: read
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       # Prepare a folder named exactly like the repo as the plugin root.
       # If the repo already has such a folder (common for WP plugins), use it.
@@ -76,7 +79,7 @@ jobs:
       # Upload the FOLDER (not a .zip). The artifact service zips it for us,
       # keeping the top-level folder name inside the archive.
       - name: Upload plugin artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: ${{ github.event.repository.name }}
           path: ${{ steps.prep.outputs.PKG_DIR }}
@@ -84,7 +87,7 @@ jobs:
           compression-level: 0
 
       # Comment with a Playground link that installs from the artifact ZIP
-      - uses: mshick/add-pr-comment@v2
+      - uses: mshick/add-pr-comment@b8f338c590a895d50bcbfa6c5859251edc8952fc # v2
         with:
           message: |
             **Test on Playground**

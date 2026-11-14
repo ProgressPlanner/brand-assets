@@ -12,23 +12,26 @@ on:
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   phpstan:
     name: Static Analysis
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
         with:
           php-version: 'latest'
           coverage: none
           tools: composer, cs2pr
 
       - name: Install PHP dependencies
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@a8d0d959dab41457692a5e2041bd9b757a119e3f # v3
         with:
           composer-options: '--prefer-dist --no-scripts'
 

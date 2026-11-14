@@ -4,14 +4,17 @@ on:
     branches:
     - main
   workflow_dispatch:
+permissions:
+  contents: read
+
 jobs:
   asset_deploy:
     name: Push to main
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@main
+    - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
     - name: WordPress.org plugin asset/readme update
-      uses: 10up/action-wordpress-plugin-asset-update@develop
+      uses: 10up/action-wordpress-plugin-asset-update@3af0a1fe85f5f674c36e3c90bb6331e6fdaafdfd # develop
       env:
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }}

@@ -61,8 +61,8 @@ final class Brand_Assets_Frontend {
 				}
 			});';
 
-		// Only enqueue if we have a brand page selected.
-		if ( empty( $options['brand_page_id'] ) ) {
+		// Only enqueue the popover for a published brand page.
+		if ( empty( $options['brand_page_id'] ) || 'publish' !== get_post_status( $options['brand_page_id'] ) ) {
 			// But inline JS can be used without the page being selected.
 			wp_add_inline_script( 'brand-assets-popover', $js );
 			return;
@@ -76,10 +76,15 @@ final class Brand_Assets_Frontend {
 		$js .= PHP_EOL;
 		$js .= sprintf(
 			'document.addEventListener("DOMContentLoaded", function() {
-				const logoElements = document.querySelectorAll("%s");
+				let logoElements = [];
+				try {
+					logoElements = document.querySelectorAll(%s);
+				} catch (error) {
+					// Ignore invalid selectors so the Escape handler still works.
+				}
 				const popover = document.querySelector("#brand_assets_logo_popover");
 
-				if (logoElements.length > 0) {
+				if (popover && logoElements.length > 0) {
 					logoElements.forEach(logoElement => {
 						logoElement.addEventListener("contextmenu", function(event) {
 							event.preventDefault();
@@ -95,7 +100,7 @@ final class Brand_Assets_Frontend {
 					}
 				}, false);
 			});',
-			esc_js( $options['logo_selector'] )
+			wp_json_encode( $options['logo_selector'], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT )
 		);
 
 		// Add inline scripts to our own handle.
@@ -186,7 +191,7 @@ final class Brand_Assets_Frontend {
 	public function add_popover_html() {
 		$options = Brand_Assets::get_instance()->options->get_all();
 
-		if ( empty( $options['brand_page_id'] ) ) {
+		if ( empty( $options['brand_page_id'] ) || 'publish' !== get_post_status( $options['brand_page_id'] ) ) {
 			return;
 		}
 
