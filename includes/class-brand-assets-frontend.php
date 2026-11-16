@@ -62,7 +62,7 @@ final class Brand_Assets_Frontend {
 			});';
 
 		// Only enqueue the popover for a published brand page.
-		if ( empty( $options['brand_page_id'] ) || 'publish' !== get_post_status( $options['brand_page_id'] ) ) {
+		if ( ! $this->has_published_brand_page( $options ) ) {
 			// But inline JS can be used without the page being selected.
 			wp_add_inline_script( 'brand-assets-popover', $js );
 			return;
@@ -119,6 +119,16 @@ final class Brand_Assets_Frontend {
 			wp_add_inline_style( 'brand-assets-popover', $this->generate_css_variables( $options ) );
 		}
 		// If mode is 'none', don't load any CSS.
+	}
+
+	/**
+	 * Check whether a brand page is selected and published.
+	 *
+	 * @param array<string, mixed> $options Plugin options.
+	 * @return bool True if the popover should be shown.
+	 */
+	private function has_published_brand_page( $options ) {
+		return ! empty( $options['brand_page_id'] ) && 'publish' === get_post_status( $options['brand_page_id'] );
 	}
 
 	/**
@@ -191,7 +201,7 @@ final class Brand_Assets_Frontend {
 	public function add_popover_html() {
 		$options = Brand_Assets::get_instance()->options->get_all();
 
-		if ( empty( $options['brand_page_id'] ) || 'publish' !== get_post_status( $options['brand_page_id'] ) ) {
+		if ( ! $this->has_published_brand_page( $options ) ) {
 			return;
 		}
 
