@@ -2,6 +2,9 @@ import { useBlockProps } from '@wordpress/block-editor';
 
 // Function to determine if a color is light or dark.
 const isColorDark = ( hexColor ) => {
+	if ( typeof hexColor !== 'string' ) {
+		return false;
+	}
 	const color = hexColor.replace( '#', '' );
 	const r = parseInt( color.substring( 0, 2 ), 16 );
 	const g = parseInt( color.substring( 2, 4 ), 16 );
@@ -12,7 +15,7 @@ const isColorDark = ( hexColor ) => {
 
 export default function save( { attributes } ) {
 	const {
-		swatches,
+		swatches: storedSwatches,
 		swatchWidth,
 		swatchHeight,
 		swatchGap,
@@ -21,6 +24,10 @@ export default function save( { attributes } ) {
 		borderColor,
 		showCMYK,
 	} = attributes;
+	const swatches = storedSwatches.map( ( swatch ) => ( {
+		...swatch,
+		color: typeof swatch?.color === 'string' ? swatch.color : '',
+	} ) );
 
 	return (
 		<div { ...useBlockProps.save() }>

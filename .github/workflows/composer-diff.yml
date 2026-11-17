@@ -3,21 +3,27 @@ on:
   pull_request:
     paths:
       - 'composer.lock'
+permissions:
+  contents: read
+
 jobs:
   composer-diff:
+    permissions:
+      contents: read
+      pull-requests: write
     name: Composer Diff
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0 # Required to make it possible to compare with PR base branch
 
       - name: Generate composer diff
         id: composer_diff # To reference the output in comment
-        uses: IonBazan/composer-diff-action@v1
+        uses: IonBazan/composer-diff-action@3140157575f6a67799cc80248ae35f5fb303ab15 # v1
 
-      - uses: marocchino/sticky-pull-request-comment@v2
+      - uses: marocchino/sticky-pull-request-comment@773744901bac0e8cbb5a0dc842800d45e9b2b405 # v2
         # An empty diff result will break this action.
         if: ${{ steps.composer_diff.outputs.composer_diff_exit_code != 0 }}
         with:

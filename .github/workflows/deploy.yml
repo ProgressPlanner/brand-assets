@@ -5,16 +5,21 @@ on:
     types: [released]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   deploy_to_wordpress_org:
+    permissions:
+      contents: write
     name: Deploy release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '20'
           cache: 'npm'
@@ -27,7 +32,7 @@ jobs:
 
       - name: WordPress plugin deploy
         id: deploy
-        uses: 10up/action-wordpress-plugin-deploy@develop
+        uses: 10up/action-wordpress-plugin-deploy@008657da18d18e065aaaccd287fa3af53ff768a1 # develop
         with:
           generate-zip: true
         env:
@@ -36,7 +41,7 @@ jobs:
 
       - name: Upload release asset
         if: github.event_name == 'release'
-        uses: Shopify/upload-to-release@master
+        uses: Shopify/upload-to-release@d0164d4ca84081447a4c6751d3bae0e834c501de # master
         with:
           name: ${{ github.event.repository.name }}.zip
           path: ${{ steps.deploy.outputs.zip-path }}

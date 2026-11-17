@@ -5,7 +5,7 @@
  * Description:       Easily display your company's brand assets including color schemes, logos, and brand guidelines.
  * Requires at least: 6.6
  * Requires PHP:      7.4
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Team Progress Planner
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants.
-define( 'BRAND_ASSETS_VERSION', '1.0.0' );
+define( 'BRAND_ASSETS_VERSION', '1.0.1' );
 define( 'BRAND_ASSETS_PLUGIN_FILE', __FILE__ );
 define( 'BRAND_ASSETS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'BRAND_ASSETS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -36,8 +36,8 @@ define( 'BRAND_ASSETS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
  * @return void
  */
 function brand_assets_autoloader( $class_name ) {
-	// Only handle Brand_Assets classes.
-	if ( strpos( $class_name, 'Brand_Assets' ) !== 0 ) {
+	// Only handle the four classes owned by this plugin.
+	if ( ! in_array( $class_name, array( 'Brand_Assets', 'Brand_Assets_Frontend', 'Brand_Assets_Options', 'Brand_Assets_Settings' ), true ) ) {
 		return;
 	}
 

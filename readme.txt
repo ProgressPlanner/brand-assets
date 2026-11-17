@@ -2,9 +2,9 @@
 Contributors: joostdevalk, aristath, filipi, progressplanner
 Tags: brand assets, brand guidelines, color palette, media kit, block
 Requires at least: 6.6
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,6 +101,15 @@ Yes. Brand Assets includes a pre-built block pattern with logo sections, downloa
 
 == Changelog ==
 
+= 1.0.1 =
+
+* Only show the logo popover when the selected brand page is published.
+* Keep popover keyboard handling working when the logo selector is invalid.
+* Fix errors when clearing a swatch color or loading a missing or non-text color value.
+* Allow a zero-width popover border.
+* Improve output escaping and restrict class loading to plugin classes.
+* Harden release workflows and update development dependencies.
+
 = 1.0.0 =
 
 * First stable release on FAIR.
@@ -113,6 +122,10 @@ Yes. Brand Assets includes a pre-built block pattern with logo sections, downloa
 * Added responsive frontend output.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+
+Fixes color editing and popover behavior, and improves plugin and release workflow hardening.
 
 = 1.0.0 =
 
