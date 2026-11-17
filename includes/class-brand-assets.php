@@ -80,6 +80,7 @@ final class Brand_Assets {
 	 */
 	private function init_hooks() {
 		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_scripts' ) );
 		// Register settings link hook immediately.
 		add_filter( 'plugin_action_links_' . plugin_basename( BRAND_ASSETS_PLUGIN_FILE ), array( $this, 'add_settings_link' ) );
 		register_activation_hook( BRAND_ASSETS_PLUGIN_FILE, array( $this, 'activate' ) );
@@ -106,6 +107,22 @@ final class Brand_Assets {
 
 		// Register block patterns.
 		$this->register_block_patterns();
+	}
+
+	/**
+	 * Load the download control in every block editor, including the Site Editor.
+	 *
+	 * @return void
+	 */
+	public function enqueue_editor_scripts() {
+		wp_enqueue_script(
+			'brand-assets-download-links-editor',
+			plugins_url( 'assets/download-links-editor.js', BRAND_ASSETS_PLUGIN_FILE ),
+			array( 'wp-block-editor', 'wp-components', 'wp-data', 'wp-element', 'wp-format-library', 'wp-i18n', 'wp-rich-text' ),
+			BRAND_ASSETS_VERSION,
+			true
+		);
+		wp_set_script_translations( 'brand-assets-download-links-editor', 'brand-assets' );
 	}
 
 	/**
