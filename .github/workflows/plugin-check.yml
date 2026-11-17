@@ -17,7 +17,10 @@ jobs:
           with:
             php-version: '8.3'
             coverage: none
-            tools: wp-cli
+            # Use a release archive instead of the mutable latest-build URL.
+            tools: wp-cli:2.12.0
+          env:
+            fail-fast: true
 
         # setup-php stores the ephemeral Actions token in ~/.composer/auth.json
         # as a github-oauth credential. Composer rejects that token whenever it
