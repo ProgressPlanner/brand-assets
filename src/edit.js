@@ -13,6 +13,9 @@ import { useSelect } from '@wordpress/data';
 
 // Function to determine if a color is light or dark
 const isColorDark = ( hexColor ) => {
+	if ( typeof hexColor !== 'string' ) {
+		return false;
+	}
 	const color = hexColor.replace( '#', '' );
 	const r = parseInt( color.substring( 0, 2 ), 16 );
 	const g = parseInt( color.substring( 2, 4 ), 16 );
@@ -23,6 +26,10 @@ const isColorDark = ( hexColor ) => {
 
 // Function to convert HEX to CMYK
 const hexToCmyk = ( hex ) => {
+	if ( typeof hex !== 'string' || ! /^#[0-9a-f]{6}$/i.test( hex ) ) {
+		return '';
+	}
+
 	const r = parseInt( hex.substring( 1, 3 ), 16 ) / 255;
 	const g = parseInt( hex.substring( 3, 5 ), 16 ) / 255;
 	const b = parseInt( hex.substring( 5, 7 ), 16 ) / 255;
@@ -69,7 +76,7 @@ const getDefaultSwatches = ( themeColors ) => {
 
 export default function Edit( { attributes, setAttributes, clientId } ) {
 	const {
-		swatches,
+		swatches: storedSwatches,
 		swatchWidth,
 		swatchHeight,
 		swatchGap,
@@ -78,6 +85,10 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 		borderColor,
 		showCMYK,
 	} = attributes;
+	const swatches = storedSwatches.map( ( swatch ) => ( {
+		...swatch,
+		color: typeof swatch?.color === 'string' ? swatch.color : '',
+	} ) );
 	const [ selectedSwatchIndex, setSelectedSwatchIndex ] = useState( 0 );
 	const [ linked, setLinked ] = useState( true );
 
@@ -148,7 +159,6 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 	};
 
 	const updateDimensions = ( value, dimension ) => {
-		console.log( 'Updating dimensions:', value, dimension ); // eslint-disable-line no-console
 		if ( dimension === 'both' ) {
 			setAttributes( { swatchWidth: value, swatchHeight: value } );
 			maxBorderRadius = Math.max( value, attributes.borderRadius ) / 2;
@@ -262,7 +272,6 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 							] }
 							label={ __( 'Border color', 'brand-assets' ) }
 							onChange={ ( value ) => {
-								console.log( 'New border color:', value ); // eslint-disable-line no-console
 								setAttributes( { borderColor: value } );
 							} }
 							disableAlpha

@@ -181,8 +181,8 @@ final class Brand_Assets {
 	public function add_settings_link( array $links ) {
 		$settings_link = sprintf(
 			'<a href="%s">%s</a>',
-			admin_url( 'options-general.php?page=brand-assets-settings' ),
-			__( 'Settings', 'brand-assets' )
+			esc_url( admin_url( 'options-general.php?page=brand-assets-settings' ) ),
+			esc_html__( 'Settings', 'brand-assets' )
 		);
 		array_unshift( $links, $settings_link );
 		return $links;

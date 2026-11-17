@@ -137,7 +137,7 @@ final class Brand_Assets_Options {
 		$popover_bg_color        = sanitize_hex_color( $input['popover_bg_color'] ?? '' );
 		$popover_text_color      = sanitize_hex_color( $input['popover_text_color'] ?? '' );
 		$popover_border_color    = sanitize_hex_color( $input['popover_border_color'] ?? '' );
-		$popover_border_width    = absint( $input['popover_border_width'] ?? 0 );
+		$popover_border_width    = absint( $input['popover_border_width'] ?? $defaults['popover_border_width'] );
 		$popover_border_radius   = absint( $input['popover_border_radius'] ?? 0 );
 		$popover_padding         = absint( $input['popover_padding'] ?? 0 );
 		$popover_max_width       = absint( $input['popover_max_width'] ?? 0 );
@@ -156,7 +156,7 @@ final class Brand_Assets_Options {
 		$sanitized['popover_bg_color']        = $popover_bg_color !== '' && $popover_bg_color !== null ? $popover_bg_color : $defaults['popover_bg_color'];
 		$sanitized['popover_text_color']      = $popover_text_color !== '' && $popover_text_color !== null ? $popover_text_color : $defaults['popover_text_color'];
 		$sanitized['popover_border_color']    = $popover_border_color !== '' && $popover_border_color !== null ? $popover_border_color : $defaults['popover_border_color'];
-		$sanitized['popover_border_width']    = $popover_border_width > 0 ? $popover_border_width : $defaults['popover_border_width'];
+		$sanitized['popover_border_width']    = $popover_border_width;
 		$sanitized['popover_border_radius']   = $popover_border_radius >= 0 ? $popover_border_radius : $defaults['popover_border_radius'];
 		$sanitized['popover_padding']         = $popover_padding > 0 ? $popover_padding : $defaults['popover_padding'];
 		$sanitized['popover_max_width']       = $popover_max_width > 0 ? $popover_max_width : $defaults['popover_max_width'];

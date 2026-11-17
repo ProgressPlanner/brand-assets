@@ -2,15 +2,18 @@ name: 'WordPress.org Plugin Check'
 on: # rebuild any PRs and main branch changes
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
         - name: Checkout
-          uses: actions/checkout@v5
+          uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
 
         - name: Setup PHP
-          uses: shivammathur/setup-php@v2
+          uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
           with:
             php-version: '8.3'
             coverage: none
@@ -51,7 +54,7 @@ jobs:
         # that fix landed upstream, @wordpress/env needs no version pin here.
         # https://github.com/WordPress/plugin-check-action/pull/590
         - name: Run plugin check
-          uses: wordpress/plugin-check-action@v1.1.9
+          uses: wordpress/plugin-check-action@10857da14b6c2246d15402b3e69f777edcf8c12e # v1.1.9
           with:
             build-dir: './plugin-check-build/${{ github.event.repository.name }}'
             exclude-checks: |
