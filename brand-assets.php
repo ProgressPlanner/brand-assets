@@ -3,7 +3,7 @@
  * Plugin Name:       Brand Assets
  * Plugin URI:        https://progressplanner.com/plugins/brand-assets/
  * Description:       Easily display your company's brand assets including color schemes, logos, and brand guidelines.
- * Requires at least: 6.6
+ * Requires at least: 6.9
  * Requires PHP:      7.4
  * Version:           1.0.1
  * Author:            Team Progress Planner
