@@ -45,7 +45,7 @@ Whether you need a public media kit, a client handoff page, or an internal brand
 2. Create a page for your brand assets or media kit.
 3. Insert the Brand Assets pattern or add the **Color Palette - Brand Assets** block.
 4. Add your approved colors, logo files, and supporting content.
-5. Go to **Settings → Brand Assets** and connect your logo popover to the page.
+5. Optional: go to **Settings → Brand Assets** and link your logo popover to the page.
 
 == Installation ==
 
