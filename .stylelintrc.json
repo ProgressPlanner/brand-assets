@@ -1,0 +1,6 @@
+{
+	"extends": "@wordpress/scripts/config/.stylelintrc.json",
+	"rules": {
+		"selector-id-pattern": null
+	}
+}
