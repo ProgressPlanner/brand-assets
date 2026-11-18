@@ -4,6 +4,7 @@
 .wordpress-org
 node_modules
 src
+tests
 vendor
 
 # Files
@@ -18,4 +19,5 @@ package.json
 package-lock.json
 phpcs.xml
 phpstan.neon.dist
+phpunit.xml.dist
 .stylelintrc.json

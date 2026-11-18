@@ -33,3 +33,4 @@ vendor/
 
 # dotenv environment variables file
 .env
+.phpunit.result.cache
