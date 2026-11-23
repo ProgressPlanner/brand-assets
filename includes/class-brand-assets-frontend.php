@@ -80,27 +80,64 @@ final class Brand_Assets_Frontend {
 				try {
 					logoElements = document.querySelectorAll(%s);
 				} catch (error) {
-					// Ignore invalid selectors so the Escape handler still works.
+					// Leave the page unchanged when the selector is invalid.
 				}
 				const popover = document.querySelector("#brand_assets_logo_popover");
 
-				if (popover && logoElements.length > 0) {
-					logoElements.forEach(logoElement => {
-						logoElement.addEventListener("contextmenu", function(event) {
-							event.preventDefault();
-							popover.showPopover();
-						}, false);
-					});
+				if (!popover || typeof popover.showModal !== "function") {
+					return;
 				}
 
-				// Close popover on escape key
-				document.addEventListener("keydown", function(event) {
-					if (event.key === "Escape" && popover && popover.matches(":popover-open")) {
-						popover.hidePopover();
+				let activeTrigger = null;
+				logoElements.forEach(logoElement => {
+					const trigger = document.createElement("button");
+					trigger.type = "button";
+					trigger.className = "brand-assets-dialog-trigger";
+					trigger.textContent = %s;
+					trigger.setAttribute("aria-haspopup", "dialog");
+					trigger.setAttribute("aria-controls", popover.id);
+					// Keep the new button outside linked logos and other buttons.
+					const logoContainer = logoElement.closest("a, button") || logoElement;
+					logoContainer.insertAdjacentElement("afterend", trigger);
+
+					const openDialog = function(event) {
+						event.preventDefault();
+						if (!popover.open) {
+							activeTrigger = trigger;
+							popover.showModal();
+						}
+					};
+					trigger.addEventListener("click", openDialog);
+					logoElement.addEventListener("contextmenu", openDialog);
+				});
+
+				popover.querySelector("button.close").addEventListener("click", function() {
+					popover.close();
+				});
+				// The close event also covers the native Escape-key behavior.
+				popover.addEventListener("close", function() {
+					if (activeTrigger && activeTrigger.isConnected) {
+						activeTrigger.focus();
 					}
-				}, false);
+				});
+				// Keep Tab navigation cycling through the dialog controls.
+				popover.addEventListener("keydown", function(event) {
+					if (event.key !== "Tab") {
+						return;
+					}
+					const controls = Array.from(popover.querySelectorAll("a[href], button:not([disabled])"));
+					const first = controls[0];
+					const last = controls[controls.length - 1];
+					if (!controls.includes(document.activeElement) ||
+						(event.shiftKey && document.activeElement === first) ||
+						(!event.shiftKey && document.activeElement === last)) {
+						event.preventDefault();
+						(event.shiftKey ? last : first).focus();
+					}
+				});
 			});',
-			wp_json_encode( $options['logo_selector'], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT )
+			wp_json_encode( $options['logo_selector'], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ),
+			wp_json_encode( __( 'Open brand assets', 'brand-assets' ), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT )
 		);
 
 		// Add inline scripts to our own handle.
@@ -207,17 +244,18 @@ final class Brand_Assets_Frontend {
 
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in the printf.
 		printf(
-			'<dialog popover="manual" id="brand_assets_logo_popover">
-	<h1>%s</h1>
+			'<dialog id="brand_assets_logo_popover" aria-modal="true" aria-labelledby="brand_assets_logo_popover_heading">
+	<h1 id="brand_assets_logo_popover_heading" tabindex="-1" autofocus>%s</h1>
 	<p class="text_line1">%s</p>
 	<p class="text_line2">%s <a href="%s">%s</a>.</p>
-	<button class="close" popovertarget="brand_assets_logo_popover" popovertargetaction="hide">X</button>
+	<button type="button" class="close" aria-label="%s"><span aria-hidden="true">X</span></button>
 </dialog>' . PHP_EOL,
-			esc_html( $options['heading'] ),
+			esc_html( trim( $options['heading'] ) !== '' ? $options['heading'] : __( 'Brand assets', 'brand-assets' ) ),
 			esc_html( $options['text_line1'] ),
 			esc_html( $options['text_line2'] ),
 			esc_url( (string) get_permalink( $options['brand_page_id'] ) ),
-			esc_html( $options['link_text'] )
+			esc_html( $options['link_text'] ),
+			esc_attr__( 'Close dialog', 'brand-assets' )
 		);
 	}
 

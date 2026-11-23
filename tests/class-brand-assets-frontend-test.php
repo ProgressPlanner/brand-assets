@@ -143,8 +143,8 @@ final class Brand_Assets_Frontend_Test extends Yoast\WPTestUtils\WPIntegration\T
 		$this->frontend->add_popover_html();
 		$output = (string) ob_get_clean();
 
-		$this->assertStringContainsString( '<dialog popover="manual" id="brand_assets_logo_popover">', $output );
-		$this->assertStringContainsString( '<h1>Logo &lt;script&gt;alert(1)&lt;/script&gt;</h1>', $output );
+		$this->assertStringContainsString( '<dialog id="brand_assets_logo_popover" aria-modal="true" aria-labelledby="brand_assets_logo_popover_heading">', $output );
+		$this->assertStringContainsString( '<h1 id="brand_assets_logo_popover_heading" tabindex="-1" autofocus>Logo &lt;script&gt;alert(1)&lt;/script&gt;</h1>', $output );
 		$this->assertStringContainsString( '<a href="' . esc_url( (string) get_permalink( $page_id ) ) . '">Our brand page</a>', $output );
 		$this->assertStringNotContainsString( '<script>', $output );
 	}
