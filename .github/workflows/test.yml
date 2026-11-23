@@ -1,0 +1,109 @@
+name: Test
+
+on:
+  # Run on pushes to select branches and on all pull requests.
+  push:
+    branches:
+      - main
+      - develop
+      - 'release/[0-9]+.[0-9]+*'
+      - 'hotfix/[0-9]+.[0-9]+*'
+  pull_request:
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+# Cancels all previous workflow runs for the same branch that have not yet completed.
+concurrency:
+  # The concurrency group contains the workflow name and the branch name.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # The minimum supported versions ("Requires PHP" and "Requires at least").
+          - php_version: '7.4'
+            wp_version: '6.6'
+            multisite: false
+
+          - php_version: '8.3'
+            wp_version: 'latest'
+            multisite: true
+
+          - php_version: '8.5'
+            wp_version: 'latest'
+            multisite: false
+
+    name: "Integration Test: PHP ${{ matrix.php_version }} | WP ${{ matrix.wp_version }}${{ matrix.multisite == true && ' (+ ms)' || '' }}"
+
+    # Allow builds to fail on as-of-yet unreleased WordPress versions.
+    continue-on-error: ${{ matrix.wp_version == 'trunk' }}
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: false
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
+        with:
+          php-version: ${{ matrix.php_version }}
+          ini-values: zend.assertions=1, error_reporting=-1, display_errors=On
+          coverage: none
+
+      # The lock file targets the PHP version the dev tools need, the tests run on every supported PHP version.
+      - name: "Composer: remove the PHP platform requirement"
+        run: composer config --unset platform.php
+
+      # The code style and static analysis tools are not needed here and do not install on older PHP versions.
+      - name: "Composer: remove the dev tools that are not needed for the tests"
+        run: >
+          composer remove --dev --no-update --no-scripts --no-interaction
+          dealerdirect/phpcodesniffer-composer-installer
+          friendsofphp/php-cs-fixer
+          php-parallel-lint/php-parallel-lint
+          phpcompatibility/phpcompatibility-wp
+          phpstan/extension-installer
+          phpstan/phpstan
+          squizlabs/php_codesniffer
+          szepeviktor/phpstan-wordpress
+          wp-coding-standards/wpcs
+
+      # Install dependencies and handle caching in one go.
+      # @link https://github.com/marketplace/actions/install-composer-dependencies
+      - name: "Install Composer dependencies"
+        uses: ramsey/composer-install@a8d0d959dab41457692a5e2041bd9b757a119e3f # v3
+        with:
+          # Force a `composer update` run, so the test tooling matches the PHP version.
+          dependency-versions: "highest"
+          # Bust the cache at least once a month - output format: YYYY-MM-DD.
+          custom-cache-suffix: $(date -u -d "-0 month -$(($(date +%d)-1)) days" "+%F")
+
+      - name: Install WP
+        shell: bash
+        run: tests/bin/install-wp-tests.sh wordpress_tests root '' 127.0.0.1:3306 ${{ matrix.wp_version }}
+
+      - name: Run unit tests - single site
+        run: composer test
+
+      - name: Run unit tests - multisite
+        if: ${{ matrix.multisite == true }}
+        run: composer test
+        env:
+          WP_MULTISITE: 1

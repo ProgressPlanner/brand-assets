@@ -92,11 +92,17 @@ const v010 = {
 								key={ index }
 								className={
 									'swatch' +
-									( isColorDark( swatch.color ) ? ' dark' : '' )
+									( isColorDark( swatch.color )
+										? ' dark'
+										: '' )
 								}
-								style={ { '--swatchColor': `${ swatch.color }` } }
+								style={ {
+									'--swatchColor': `${ swatch.color }`,
+								} }
 							>
-								<span className={ 'name' }>{ swatch.name }</span>
+								<span className={ 'name' }>
+									{ swatch.name }
+								</span>
 								<code>{ swatch.color.toUpperCase() }</code>
 							</div>
 						);
