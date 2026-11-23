@@ -1,7 +1,7 @@
 /**
  * Copy color values to clipboard when clicking color swatches
  *
- * @package BrandAssets
+ * @package
  * @since 0.1.0
  */
 

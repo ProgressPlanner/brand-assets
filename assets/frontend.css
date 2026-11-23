@@ -1,15 +1,16 @@
 #brand_assets_logo_popover {
+
 	/* CSS Custom Properties - can be overridden via plugin settings */
-	--ba-popover-bg: #ffffff;
-	--ba-popover-text-color: #000000;
+	--ba-popover-bg: #fff;
+	--ba-popover-text-color: #000;
 	--ba-popover-link-color: #0073aa;
-	--ba-popover-border-color: #cccccc;
+	--ba-popover-border-color: #ccc;
 	--ba-popover-border-width: 1px;
 	--ba-popover-border-radius: 8px;
 	--ba-popover-padding: 20px;
 	--ba-popover-max-width: 400px;
 	--ba-popover-font-size: 16px;
-	--ba-close-btn-color: #666666;
+	--ba-close-btn-color: #666;
 
 	/* Apply custom properties */
 	background: var(--ba-popover-bg);
@@ -23,31 +24,35 @@
 	&::backdrop {
 		background: rgba(0, 0, 0, 0.75);
 	}
+
 	h1 {
 		font-size: 1.2em;
 		color: var(--ba-popover-text-color);
 		margin: 0 0 15px 0;
 	}
+
 	p {
 		margin: 10px 0;
 		line-height: 1.5;
 		color: var(--ba-popover-text-color);
 	}
+
 	a {
 		color: var(--ba-popover-link-color);
-		font-weight: bold;
+		font-weight: 700;
 		text-decoration: underline;
 
 		&:hover {
 			opacity: 0.8;
 		}
 	}
+
 	button.close {
 		border: none;
 		background-color: transparent;
 		color: var(--ba-close-btn-color);
 		font-size: 1.5em;
-		font-weight: bold;
+		font-weight: 700;
 		position: absolute;
 		right: 8px;
 		top: 5px;

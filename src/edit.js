@@ -143,13 +143,13 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 
 	const addSwatch = () => {
 		const newSwatch = {
-			name: "New Color",
-			color: "#000000",
-			cmyk: hexToCmyk("#000000"),
+			name: 'New Color',
+			color: '#000000',
+			cmyk: hexToCmyk( '#000000' ),
 		};
-		const updatedSwatches = [...swatches, newSwatch];
-		setAttributes({ swatches: updatedSwatches });
-		setSelectedSwatchIndex(updatedSwatches.length - 1);
+		const updatedSwatches = [ ...swatches, newSwatch ];
+		setAttributes( { swatches: updatedSwatches } );
+		setSelectedSwatchIndex( updatedSwatches.length - 1 );
 	};
 
 	const deleteSwatch = ( index ) => {
