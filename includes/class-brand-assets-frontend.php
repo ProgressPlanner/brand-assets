@@ -53,10 +53,12 @@ final class Brand_Assets_Frontend {
 
 		$js = 'document.addEventListener("DOMContentLoaded", function() {
 				// Add download attribute to all download links.
-				const downloadElements = document.querySelectorAll( ".ba-download a" );
+				const downloadElements = document.querySelectorAll( "a.ba-download, .ba-download a" );
 				if ( 0 < downloadElements.length ) {
 					downloadElements.forEach( element => {
-						element.setAttribute( "download", "" );
+						if ( ! element.classList.contains( "ba-no-download" ) && ! element.hasAttribute( "download" ) ) {
+							element.setAttribute( "download", "" );
+						}
 					} );
 				}
 			});';

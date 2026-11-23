@@ -1,7 +1,7 @@
 === Brand Assets ===
 Contributors: joostdevalk, aristath, filipi, progressplanner
 Tags: brand assets, brand guidelines, color palette, media kit, block
-Requires at least: 6.6
+Requires at least: 6.9
 Tested up to: 7.2
 Requires PHP: 7.4
 Stable tag: 1.0.1
@@ -28,7 +28,7 @@ Whether you need a public media kit, a client handoff page, or an internal brand
 * Add a dedicated brand color palette block to any page or post.
 * Show color swatches with adjustable width, height, spacing, borders, and optional CMYK values.
 * Use the included brand page pattern to launch a complete brand guidelines page faster.
-* Add downloadable brand files by applying the `ba-download` class to list items in the editor.
+* Mark individual text links as downloads with the **This link is a download** toolbar toggle.
 * Show a configurable popover on your site logo that links visitors to the right brand assets page.
 * Manage plugin settings from **Settings → Brand Assets** or the plugin row settings link.
 
@@ -70,7 +70,9 @@ Add the **Color Palette - Brand Assets** block in the editor, then enter your br
 
 = Can I add downloadable logo files or PDFs? =
 
-Yes. Add a list in the block editor, place your download links inside it, and add the `ba-download` class to the relevant list items. The plugin will automatically add the `download` attribute to links inside those items.
+Yes. Place the cursor inside a text link and toggle **This link is a download** in the block toolbar. This changes only that link, even when the block contains several links. The setting is kept when you edit the link or reopen the editor.
+
+Existing `ba-download` classes on list items still work. You can turn off the toggle for an individual link inside those items. Downloads from other websites depend on the remote server's download headers and browser behavior.
 
 = What does the logo popover do? =
 

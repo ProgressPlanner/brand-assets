@@ -31,7 +31,7 @@ jobs:
         include:
           # The minimum supported versions ("Requires PHP" and "Requires at least").
           - php_version: '7.4'
-            wp_version: '6.6'
+            wp_version: '6.9'
             multisite: false
 
           - php_version: '8.3'

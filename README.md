@@ -58,7 +58,7 @@ You can configure:
 
 ### Download-friendly brand pages
 
-Add the `ba-download` class to a list item and Brand Assets automatically adds the `download` attribute to links inside that item. This is useful for logo packs, PDFs, icon files, and brand guideline downloads.
+Place the cursor inside a text link and toggle **This link is a download** in the block toolbar. Brand Assets adds the `download` attribute to that link on the front end. This is useful for logo packs, PDFs, icon files, and brand guideline downloads.
 
 ### Ready-made brand page pattern
 
@@ -117,6 +117,14 @@ Start with a prebuilt pattern that includes:
 
 ### Create download links
 
+1. Add a text link in a paragraph, list item, or another rich-text block.
+2. Place the cursor inside the link.
+3. Toggle **This link is a download** in the block toolbar.
+
+Only that link changes. You can edit its URL or text, save, and reopen the editor without losing the setting. Selecting part of a link still changes the entire link; selections spanning multiple links do not show the toggle.
+
+The existing `ba-download` class on a list item continues to make its links downloadable:
+
 ```html
 <ul>
   <li class="ba-download">
@@ -129,6 +137,8 @@ Start with a prebuilt pattern that includes:
 ```
 
 Links inside list items with the `ba-download` class will automatically receive the `download` attribute.
+
+Turning the toggle off for a link inside such an item excludes that link from downloads. Existing custom classes, link targets, and relationships are preserved. Files hosted on another website may require download headers from that server; the toggle cannot force a browser to download every external URL.
 
 ## Settings overview
 
@@ -179,8 +189,9 @@ add_filter( 'brand_assets_pattern_file_path', function( $path ) {
 
 ### Prerequisites
 
+- WordPress 6.9+
 - PHP 7.4+
-- Node.js 14+
+- Node.js 18.12+
 - npm
 - a local WordPress development environment
 
@@ -196,6 +207,7 @@ npm install
 
 ```bash
 npm start                 # Start development build
+npm test                  # Test individual download link controls
 npm run build             # Build for production
 npm run lint:js           # Lint JavaScript
 npm run lint:css          # Lint CSS
