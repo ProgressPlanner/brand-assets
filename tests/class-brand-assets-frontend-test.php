@@ -202,7 +202,8 @@ final class Brand_Assets_Frontend_Test extends Yoast\WPTestUtils\WPIntegration\T
 	}
 
 	/**
-	 * With the CSS loading mode set to "none" no styles are added.
+	 * With the CSS loading mode set to "none" only the rule that hides the
+	 * keyboard trigger until it is focused is added.
 	 *
 	 * @return void
 	 */
@@ -212,7 +213,12 @@ final class Brand_Assets_Frontend_Test extends Yoast\WPTestUtils\WPIntegration\T
 		$this->frontend->enqueue_scripts();
 
 		$this->assertTrue( wp_style_is( 'brand-assets-popover', 'enqueued' ) );
-		$this->assertSame( '', $this->get_inline_style( 'brand-assets-popover' ) );
+
+		$style = $this->get_inline_style( 'brand-assets-popover' );
+
+		$this->assertStringContainsString( '.brand-assets-dialog-trigger:not(:focus-visible)', $style );
+		$this->assertStringNotContainsString( '#brand_assets_logo_popover', $style );
+		$this->assertStringNotContainsString( 'button.close', $style );
 	}
 
 	/**

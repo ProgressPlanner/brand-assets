@@ -102,6 +102,23 @@ final class Brand_Assets_Frontend {
 					const logoContainer = logoElement.closest("a, button") || logoElement;
 					logoContainer.insertAdjacentElement("afterend", trigger);
 
+					// When the default CSS shows the focused trigger as an overlay, move it from
+					// wherever the theme layout puts it to just below the left edge of the logo.
+					trigger.addEventListener("focus", function() {
+						trigger.style.transform = "";
+						if (!trigger.matches(":focus-visible") || "absolute" !== window.getComputedStyle(trigger).position) {
+							return;
+						}
+						const logoRect = logoContainer.getBoundingClientRect();
+						const triggerRect = trigger.getBoundingClientRect();
+						const x = Math.round(logoRect.left - triggerRect.left);
+						const y = Math.round(logoRect.bottom + 8 - triggerRect.top);
+						trigger.style.transform = "translate(" + x + "px, " + y + "px)";
+					});
+					trigger.addEventListener("blur", function() {
+						trigger.style.transform = "";
+					});
+
 					const openDialog = function(event) {
 						event.preventDefault();
 						if (!popover.open) {
@@ -145,6 +162,10 @@ final class Brand_Assets_Frontend {
 		// Add inline scripts to our own handle.
 		wp_add_inline_script( 'brand-assets-popover', $js );
 
+		// Keep the keyboard trigger hidden until it receives keyboard focus in every CSS mode,
+		// so sites that opted out of the default styling don't get an always-visible button.
+		wp_add_inline_style( 'brand-assets-popover', $this->get_trigger_css() );
+
 		// Handle CSS based on loading mode.
 		if ( 'default' === $options['css_loading_mode'] ) {
 			$css_to_load = $this->get_default_css();
@@ -157,7 +178,29 @@ final class Brand_Assets_Frontend {
 			// Add CSS custom properties for user styling options.
 			wp_add_inline_style( 'brand-assets-popover', $this->generate_css_variables( $options ) );
 		}
-		// If mode is 'none', don't load any CSS.
+		// If mode is 'none', only the trigger visibility rule above is loaded.
+	}
+
+	/**
+	 * Get the CSS that keeps the keyboard trigger visually hidden until it has keyboard focus.
+	 *
+	 * The button stays available to screen readers and the keyboard while hidden.
+	 *
+	 * @since 1.0.2
+	 * @return string
+	 */
+	private function get_trigger_css() {
+		return '.brand-assets-dialog-trigger:not(:focus-visible) {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border: 0;
+}';
 	}
 
 	/**

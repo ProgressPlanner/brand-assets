@@ -76,7 +76,7 @@ Existing `ba-download` classes on list items still work. You can turn off the to
 
 = What does the logo popover do? =
 
-The logo popover lets visitors right-click your site logo and jump straight to your brand assets page. Keyboard users can tab to the "Open brand assets" button beside the logo and press Enter or Space. With the default styling, the button becomes visible when focused. You can customize the heading, supporting text, link label, target page, and logo selector in the plugin settings.
+The logo popover lets visitors right-click your site logo and jump straight to your brand assets page. Keyboard users can tab to the "Open brand assets" button beside the logo and press Enter or Space. The button stays hidden until it receives keyboard focus; with the default styling it then appears just below the logo. You can customize the heading, supporting text, link label, target page, and logo selector in the plugin settings.
 
 = Does Brand Assets work with any WordPress theme? =
 
