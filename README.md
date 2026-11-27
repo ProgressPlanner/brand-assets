@@ -46,7 +46,7 @@ Show brand colors in clean swatches with controls for:
 
 Add a contextual popover to your site logo so visitors can quickly jump to your brand assets page.
 
-Visitors can right-click the logo or tab to the **Open brand assets** button and press Enter or Space. With the default styling, the button becomes visible when focused. Escape or **Close dialog** closes the dialog and returns focus to that button.
+Visitors can right-click the logo or tab to the **Open brand assets** button and press Enter or Space. The button stays hidden until it receives keyboard focus; with the default styling it then appears just below the logo. Escape or **Close dialog** closes the dialog and returns focus to that button.
 
 You can configure:
 
